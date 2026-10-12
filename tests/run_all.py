@@ -46,6 +46,12 @@ def pythons():
 		candidates.append(shutil.which("python" + v) or "")
 		candidates += glob.glob(os.path.join(os.environ.get("LOCALAPPDATA", ""), "Programs", "Python", "Python%s" % v.replace(".", ""), "python.exe"))
 		candidates += glob.glob(os.path.join(os.environ.get("ProgramFiles", ""), "Python%s" % v.replace(".", ""), "python.exe"))
+		# GitHub Actions (actions/setup-python) on Windows
+		candidates += sorted(glob.glob(os.path.join(os.environ.get("RUNNER_TOOL_CACHE", ""), "Python", v + ".*", "x64", "python.exe")))
+	# Any python on the PATH (Linux python3.x, setup-python, other installations)
+	for folder in os.environ.get("PATH", "").split(os.pathsep):
+		for name in ("python.exe", "python3", "python"):
+			candidates.append(os.path.join(folder, name))
 	found = {}
 	for exe in candidates:
 		if not exe or not os.path.exists(exe):
@@ -191,6 +197,17 @@ def main():
 	for s in suites:
 		if s.get("log"):
 			print("\n--- %s (log) ---\n%s" % (s["suite"], s["log"]))
+	if os.environ.get("GITHUB_ACTIONS"):
+		# Failures as annotations (readable on the public run page) and the run summary.
+		for s in suites:
+			for t in s["failures"]:
+				print("::error title=%s::%s" % (s["suite"].replace(":", " "), t.replace("\n", " ")[:900]))
+			if s.get("log"):
+				print("::warning title=log %s::%s" % (s["suite"].replace(":", " "), s["log"][-900:].replace("\r", "").replace("\n", " | ")))
+		summary = os.environ.get("GITHUB_STEP_SUMMARY")
+		if summary:
+			with open(summary, "a", encoding="utf-8") as f:
+				f.write("\n".join(lines) + "\n")
 	return 1 if failed else 0
 
 
