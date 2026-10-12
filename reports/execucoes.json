@@ -1,0 +1,641 @@
+[
+ {
+  "number": 1,
+  "date": "2026-10-11T22:43:47-03:00",
+  "version": "1.0.0",
+  "note": "versão 1.0.0, primeira execução completa",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 361,
+  "passed": 361,
+  "failed": 0,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 55,
+    "passed": 55,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 55,
+    "passed": 55,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 70,
+    "passed": 70,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 52,
+    "passed": 52,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ },
+ {
+  "number": 2,
+  "date": "2026-10-11T22:45:30-03:00",
+  "version": "1.0.0",
+  "note": "formato da Web API de 2026 (sem product, playlists de terceiros sem items)",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 367,
+  "passed": 365,
+  "failed": 2,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 58,
+    "passed": 57,
+    "failed": 1,
+    "failures": [
+     "SignIn.test_FUN01_signInFlow"
+    ]
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 58,
+    "passed": 57,
+    "failed": 1,
+    "failures": [
+     "SignIn.test_FUN01_signInFlow"
+    ]
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 70,
+    "passed": 70,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 52,
+    "passed": 52,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ },
+ {
+  "number": 3,
+  "date": "2026-10-11T22:46:23-03:00",
+  "version": "1.0.0",
+  "note": "teste FUN-01 ajustado: GET /me sem product desde 2026",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 367,
+  "passed": 367,
+  "failed": 0,
+  "corrected": [
+   "unit (python 3.11) :: SignIn.test_FUN01_signInFlow",
+   "unit (python 3.13) :: SignIn.test_FUN01_signInFlow"
+  ],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 58,
+    "passed": 58,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 58,
+    "passed": 58,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 70,
+    "passed": 70,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 52,
+    "passed": 52,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ },
+ {
+  "number": 4,
+  "date": "2026-10-11T22:48:32-03:00",
+  "version": "1.0.0",
+  "note": "build.py --release",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 367,
+  "passed": 367,
+  "failed": 0,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 58,
+    "passed": 58,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 58,
+    "passed": 58,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 70,
+    "passed": 70,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 52,
+    "passed": 52,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ },
+ {
+  "number": 5,
+  "date": "2026-10-11T23:18:52-03:00",
+  "version": "1.1.0",
+  "note": "1.1.0: Spotify em segundo plano, sem janela",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 390,
+  "passed": 390,
+  "failed": 0,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 67,
+    "passed": 67,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 67,
+    "passed": 67,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 72,
+    "passed": 72,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 55,
+    "passed": 55,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ },
+ {
+  "number": 6,
+  "date": "2026-10-11T23:20:43-03:00",
+  "version": "1.1.0",
+  "note": "build.py --release",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 390,
+  "passed": 390,
+  "failed": 0,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 67,
+    "passed": 67,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 67,
+    "passed": 67,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 72,
+    "passed": 72,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 56,
+    "passed": 56,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 55,
+    "passed": 55,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ },
+ {
+  "number": 7,
+  "date": "2026-10-11T23:44:52-03:00",
+  "version": "1.2.0",
+  "note": "1.2.0: árvore de playlists, busca nas playlists, ordenar, excluir; pasta renomeada",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 510,
+  "passed": 510,
+  "failed": 0,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 86,
+    "passed": 86,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 86,
+    "passed": 86,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 112,
+    "passed": 112,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 75,
+    "passed": 75,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 75,
+    "passed": 75,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 59,
+    "passed": 59,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ },
+ {
+  "number": 8,
+  "date": "2026-10-11T23:46:18-03:00",
+  "version": "1.2.0",
+  "note": "build.py --release",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 510,
+  "passed": 510,
+  "failed": 0,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 86,
+    "passed": 86,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 86,
+    "passed": 86,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 112,
+    "passed": 112,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 75,
+    "passed": 75,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 75,
+    "passed": 75,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 59,
+    "passed": 59,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
+ }
+]

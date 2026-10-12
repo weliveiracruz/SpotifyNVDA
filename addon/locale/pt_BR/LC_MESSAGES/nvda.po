@@ -1,0 +1,555 @@
+# Portuguese (Brazil) translation of SpotifyNVDA.
+# Copyright (C) 2026 Wellington Cruz
+# This file is covered by the GNU General Public License, version 2.
+msgid ""
+msgstr ""
+"Project-Id-Version: SpotifyNVDA\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:38 addon/globalPlugins/SpotifyNVDA/mainDialog.py:155 addon/globalPlugins/SpotifyNVDA/mainDialog.py:504 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:24 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:108 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:92
+msgid "Spotify"
+msgstr "Spotify"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:184
+msgid "Sign out of Spotify? The session and the data saved by SpotifyNVDA on this computer will be deleted. To also remove the access, go to Spotify account, Manage apps."
+msgstr "Sair da conta do Spotify? A sessão e os dados guardados pelo SpotifyNVDA neste computador serão apagados. Para remover também o acesso, vá na sua conta do Spotify, em Gerenciar aplicativos."
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:186
+msgid "Sign out"
+msgstr "Sair da conta"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:233
+msgid "Opens the Spotify window: sign in, playlists, search and playback"
+msgstr "Abre a janela do Spotify: entrar, playlists, busca e reprodução"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:241
+msgid "Spotify: plays or pauses"
+msgstr "Spotify: toca ou pausa"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:249
+msgid "Spotify: next song"
+msgstr "Spotify: próxima música"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:257
+msgid "Spotify: previous song"
+msgstr "Spotify: música anterior"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:265
+msgid "Spotify: turns the volume up"
+msgstr "Spotify: aumenta o volume"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:273
+msgid "Spotify: turns the volume down"
+msgstr "Spotify: abaixa o volume"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:281
+msgid "Spotify: says which song is playing"
+msgstr "Spotify: diz qual música está tocando"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:289
+msgid "Spotify: continues the last song played on your account"
+msgstr "Spotify: continua a última música tocada na sua conta"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:297
+msgid "Spotify: signs out of your account"
+msgstr "Spotify: sai da sua conta"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:103
+msgid "&Spotify…"
+msgstr "&Spotify…"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:105
+msgid "Opens the SpotifyNVDA window: playlists, search and playback"
+msgstr "Abre a janela do SpotifyNVDA: playlists, busca e reprodução"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:221
+msgid "Next song"
+msgstr "Próxima música"
+
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:221
+msgid "Previous song"
+msgstr "Música anterior"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:274
+msgid "&Results:"
+msgstr "&Resultados:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:37
+msgid "&Name:"
+msgstr "&Nome:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:40
+msgid "&Description:"
+msgstr "&Descrição:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:93
+msgid "Sort &by:"
+msgstr "Ordenar &por:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:97
+msgid "&Order:"
+msgstr "&Sentido:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:164
+msgid "S&tatus:"
+msgstr "&Situação:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:175
+msgid "&Search for:"
+msgstr "&Buscar:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:179
+msgid "T&ype:"
+msgstr "Ti&po:"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:742
+msgid "Save order"
+msgstr "Gravar ordem"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:764
+msgid "Delete playlist"
+msgstr "Excluir playlist"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:34 addon/globalPlugins/SpotifyNVDA/mainDialog.py:67
+msgid "New playlist"
+msgstr "Nova playlist"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:65
+msgid "Type a name for the playlist."
+msgstr "Digite um nome para a playlist."
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:168 addon/globalPlugins/SpotifyNVDA/mainDialog.py:288
+msgid "Sign &in with Spotify"
+msgstr "&Entrar com o Spotify"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:170
+msgid "Sign &out"
+msgstr "Sa&ir da conta"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:203
+msgid "&Play"
+msgstr "&Tocar"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:205
+msgid "&Add to playlist…"
+msgstr "&Adicionar à playlist…"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:207
+msgid "&My playlists"
+msgstr "&Minhas playlists"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:209
+msgid "&New playlist…"
+msgstr "&Nova playlist…"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:213
+msgid "Or&der songs…"
+msgstr "Or&denar músicas…"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:215
+msgid "D&elete playlist"
+msgstr "E&xcluir playlist"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:217
+msgid "&Continue last song"
+msgstr "C&ontinuar última música"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:219
+msgid "Play/pa&use"
+msgstr "Tocar o&u pausar"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:221
+msgid "C&lose"
+msgstr "&Fechar"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:285
+msgid "Cancel sign-&in"
+msgstr "Cancelar &entrada"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:568
+msgid "Type what you want to search for."
+msgstr "Digite o que você quer buscar."
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:660
+msgid "Add to playlist"
+msgstr "Adicionar à playlist"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:43
+msgid "&Public playlist"
+msgstr "Playlist &pública"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:101
+msgid "Ascending (A to Z, oldest first, shortest first)"
+msgstr "Crescente (de A a Z, mais antigas primeiro, mais curtas primeiro)"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:103
+msgid "Descending (Z to A, newest first, longest first)"
+msgstr "Decrescente (de Z a A, mais recentes primeiro, mais longas primeiro)"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:183
+msgid "Songs"
+msgstr "Músicas"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:185
+msgid "Playlists"
+msgstr "Playlists"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:187
+msgid "Songs in my playlists"
+msgstr "Músicas nas minhas playlists"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:192
+msgid "Searc&h"
+msgstr "Bus&car"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:263
+msgid "&Results: my playlists ({count})"
+msgstr "&Resultados: minhas playlists ({count})"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:266
+msgid "&Results: songs found ({count})"
+msgstr "&Resultados: músicas encontradas ({count})"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:269
+msgid "&Results: playlists found ({count})"
+msgstr "&Resultados: playlists encontradas ({count})"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:272
+msgid "&Results: songs in my playlists ({count})"
+msgstr "&Resultados: músicas nas minhas playlists ({count})"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:652
+msgid "You have no playlist of your own yet. Use New playlist."
+msgstr "Você ainda não tem uma playlist sua. Use Nova playlist."
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:90
+msgid "Sort {name}"
+msgstr "Ordenar {name}"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:112
+msgid "&Save this order on Spotify (changes the playlist on every device)"
+msgstr "&Gravar esta ordem no Spotify (muda a playlist em todos os aparelhos)"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:658
+msgid "Choose the playlist for {song}"
+msgstr "Escolha a playlist para {song}"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:49
+msgid "Add the &selected song: {song}"
+msgstr "Adicionar a música &selecionada: {song}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:74
+msgid "Spotify had a problem. Try again later."
+msgstr "O Spotify teve um problema. Tente de novo mais tarde."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:133
+msgid "Signed in to Spotify"
+msgstr "Conectado ao Spotify"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:156
+msgid "Paused"
+msgstr "Pausado"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:161
+msgid "Playing"
+msgstr "Tocando"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:166
+msgid "Signed out of Spotify. Your session and saved data were deleted from this computer."
+msgstr "Você saiu do Spotify. A sessão e os dados guardados foram apagados deste computador."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:171
+msgid "Waiting for the sign-in in the browser. Sign in on the Spotify page and come back here."
+msgstr "Aguardando a entrada no navegador. Entre na página do Spotify e volte aqui."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:176
+msgid "Loading…"
+msgstr "Carregando…"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:181
+msgid "Nothing found."
+msgstr "Nada encontrado."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:230
+msgid "Empty playlist"
+msgstr "Playlist vazia"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:235
+msgid "Spotify only shows the songs of playlists that are yours or that you collaborate on."
+msgstr "O Spotify só mostra as músicas das playlists que são suas ou em que você colabora."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:240
+msgid "This song is not available to play."
+msgstr "Esta música não está disponível para tocar."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:245
+msgid "Searching in your playlists…"
+msgstr "Buscando nas suas playlists…"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:18
+msgid "You are not signed in to Spotify. Press NVDA+Alt+P and choose Sign in with Spotify."
+msgstr "Você não está conectado ao Spotify. Pressione NVDA+Alt+P e escolha Entrar com o Spotify."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:21
+msgid "Enter your Spotify Client ID in NVDA settings, Spotify category, before signing in."
+msgstr "Informe o Client ID do Spotify nas configurações do NVDA, categoria Spotify, antes de entrar."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:24
+msgid "Spotify did not accept the Client ID. Check it in NVDA settings, Spotify category."
+msgstr "O Spotify não reconheceu o Client ID. Confira nas configurações do NVDA, categoria Spotify."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:27
+msgid "Your Spotify session has ended. Sign in again."
+msgstr "A sua sessão do Spotify terminou. Entre de novo."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:30
+msgid "You did not authorize SpotifyNVDA on the Spotify page."
+msgstr "Você não autorizou o SpotifyNVDA na página do Spotify."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:33
+msgid "Sign-in cancelled."
+msgstr "Entrada cancelada."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:39
+msgid "Spotify took too long to answer. Try again."
+msgstr "O Spotify demorou demais para responder. Tente de novo."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:42
+msgid "Could not connect to Spotify. Check your internet connection."
+msgstr "Sem conexão com o Spotify. Confira a sua internet."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:45
+msgid "Spotify asked to wait a little. Try again in a few seconds."
+msgstr "O Spotify pediu para esperar um pouco. Tente de novo em alguns segundos."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:48
+msgid "Playing music from here requires Spotify Premium."
+msgstr "Tocar músicas por aqui exige Spotify Premium."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:51
+msgid "No Spotify device available. Open the Spotify app on this computer or on another device and try again."
+msgstr "Nenhum dispositivo do Spotify disponível. Abra o aplicativo do Spotify neste computador ou em outro aparelho e tente de novo."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:54
+msgid "This device does not allow this action."
+msgstr "Este dispositivo não permite esta ação."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:60
+msgid "Spotify did not allow this action."
+msgstr "O Spotify não permitiu esta ação."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:63
+msgid "Spotify could not find this item."
+msgstr "O Spotify não encontrou este item."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:66
+msgid "No recently played song was found."
+msgstr "Não encontrei nenhuma música tocada recentemente."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:69
+msgid "This playlist is too big to save the new order on Spotify. The order was kept only in this window."
+msgstr "Esta playlist é grande demais para gravar a nova ordem no Spotify. A ordem ficou só nesta janela."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:72
+msgid "Spotify sent an answer that is too big."
+msgstr "O Spotify mandou uma resposta grande demais."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:104
+msgid "Nothing is playing on Spotify."
+msgstr "Nada está tocando no Spotify."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:139
+msgid "Not signed in. Choose Sign in with Spotify."
+msgstr "Não conectado. Escolha Entrar com o Spotify."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:198
+msgid "en"
+msgstr "pt-BR"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:201
+msgid "Signed in to Spotify. You can close this tab and go back to NVDA."
+msgstr "Você entrou no Spotify. Pode fechar esta aba e voltar ao NVDA."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:203
+msgid "Sign-in was not completed. You can close this tab and go back to NVDA."
+msgstr "A entrada não foi concluída. Pode fechar esta aba e voltar ao NVDA."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:205
+msgid "This address does not belong to the current sign-in."
+msgstr "Este endereço não pertence à entrada atual."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:223
+msgid "1 song"
+msgstr "1 música"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:257
+msgid "Playlist order (as saved on Spotify)"
+msgstr "Ordem da playlist (como está no Spotify)"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:259
+msgid "Title"
+msgstr "Título"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:261
+msgid "Artist"
+msgstr "Artista"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:263
+msgid "Album"
+msgstr "Álbum"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:265
+msgid "Date added"
+msgstr "Data em que foi adicionada"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:267
+msgid "Duration"
+msgstr "Duração"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:58
+msgid "This Spotify account is not registered in your Spotify app. In the Spotify dashboard, add your e-mail in User Management."
+msgstr "Esta conta do Spotify não está cadastrada no seu aplicativo do Spotify. No painel do Spotify, cadastre o seu e-mail em User Management."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:109
+msgid "Paused: {track}"
+msgstr "Pausado: {track}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:114
+msgid "Continuing: {track}"
+msgstr "Continuando: {track}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:119
+msgid "Playing {name}"
+msgstr "Tocando {name}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:124
+msgid "Volume {volume}%"
+msgstr "Volume {volume}%"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:149
+msgid "Signed in as {name}"
+msgstr "Conectado como {name}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:186
+msgid "Playlist {name} created"
+msgstr "Playlist {name} criada"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:191
+msgid "{song} added to {playlist}"
+msgstr "{song} adicionada a {playlist}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:225
+msgid "{count} songs"
+msgstr "{count} músicas"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:250
+msgid "{songs} songs found in {playlists} playlists"
+msgstr "{songs} músicas encontradas em {playlists} playlists"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:276
+msgid "{name} sorted by {key}"
+msgstr "{name} ordenada por {key}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:281
+msgid "Saving the new order of {name} on Spotify…"
+msgstr "Gravando a nova ordem de {name} no Spotify…"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:286
+msgid "New order of {name} saved on Spotify"
+msgstr "Nova ordem de {name} gravada no Spotify"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:291
+msgid "Change the order of {name} on Spotify? The playlist will have this order on every device."
+msgstr "Mudar a ordem de {name} no Spotify? A playlist ficará nesta ordem em todos os aparelhos."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:296
+msgid "Delete the playlist {name}? It will leave your Spotify library. A playlist of yours can be recovered on your Spotify account page, in Recover playlists."
+msgstr "Excluir a playlist {name}? Ela sairá da sua biblioteca do Spotify. Uma playlist sua pode ser recuperada na página da sua conta do Spotify, em Recuperar playlists."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:301
+msgid "Playlist {name} deleted"
+msgstr "Playlist {name} excluída"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:36
+msgid "Port {port} is already in use by another program. Choose another port in NVDA settings, Spotify category, and register the new redirect address in the Spotify dashboard."
+msgstr "A porta {port} já está em uso por outro programa. Escolha outra porta nas configurações do NVDA, categoria Spotify, e cadastre o novo endereço de retorno no painel do Spotify."
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:82
+msgid "{name}, by {artists}"
+msgstr "{name}, de {artists}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:93
+msgid "{name} - {owner}"
+msgstr "{name} - {owner}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:97
+msgid "{song}, album {album}"
+msgstr "{song}, álbum {album}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:107
+msgid "Playing: {track}"
+msgstr "Tocando: {track}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:131
+msgid "Signed in to Spotify as {name}"
+msgstr "Conectado ao Spotify como {name}"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:144
+msgid "Signed in as {name} (Premium)"
+msgstr "Conectado como {name} (Premium)"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:147
+msgid "Signed in as {name} (free account: playback control needs Premium)"
+msgstr "Conectado como {name} (conta gratuita: controlar a reprodução exige Premium)"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:216
+msgid "{song} (not available to play)"
+msgstr "{song} (indisponível para tocar)"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:274
+msgid "{name} sorted by {key}, descending"
+msgstr "{name} ordenada por {key}, decrescente"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:91
+msgid "{name} - {owner}, {count} songs"
+msgstr "{name} - {owner}, {count} músicas"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:32
+msgid "Spotify &Client ID:"
+msgstr "&Client ID do Spotify:"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:37
+msgid "Redirect &port:"
+msgstr "&Porta do retorno:"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:45
+msgid "Redirect &URI to register in the Spotify dashboard:"
+msgstr "&Endereço de retorno (Redirect URI) para cadastrar no painel do Spotify:"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:55
+msgid "&Volume step (%):"
+msgstr "Passo do &volume (%):"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:75
+msgid "Open the Spotify &developer dashboard"
+msgstr "Abrir o painel de &desenvolvedor do Spotify"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:77
+msgid "Sign &out of Spotify"
+msgstr "Sai&r da conta do Spotify"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:106
+msgid "The Client ID has 32 letters and numbers. Copy it from your app in the Spotify developer dashboard."
+msgstr "O Client ID tem 32 letras e números. Copie do seu aplicativo no painel de desenvolvedor do Spotify."
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:64
+msgid "Open the Spotify &app when no device is available"
+msgstr "Abrir o &aplicativo do Spotify quando não houver dispositivo"
+
+#: addon/globalPlugins/SpotifyNVDA/settingsPanel.py:70
+msgid "Keep the Spotify app &hidden (plays in the background, without a window)"
+msgstr "Manter o aplicativo do Spotify e&scondido (toca em segundo plano, sem janela)"

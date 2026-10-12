@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SpotifyNVDA</title>
+</head>
+<body>
+<main>
+<h1>SpotifyNVDA</h1>
+<p>NVDA add-on to listen to Spotify with your account: your playlists, song and playlist search, new playlists, play and pause, change songs, change the volume and continue the last song, all from the keyboard with spoken feedback.</p>
+<h2>Before you start (once)</h2>
+<p>Spotify asks each person to use their own free "app", created in the developer dashboard:</p>
+<ol>
+<li>Go to <a href="https://developer.spotify.com/dashboard">developer.spotify.com/dashboard</a>, sign in with your Spotify account and accept the terms if asked.</li>
+<li>Choose <strong>Create app</strong>. Fill in a name (for example "My NVDA") and a description.</li>
+<li>In <strong>Redirect URIs</strong>, type exactly <code>http://127.0.0.1:8898/callback</code> and choose <strong>Add</strong>.</li>
+<li>In <strong>Which API/SDKs are you planning to use?</strong>, check <strong>Web API</strong>. Accept the terms and save.</li>
+<li>Open the app, go to <strong>Settings</strong> and copy the <strong>Client ID</strong> (32 letters and numbers).</li>
+<li>In <strong>User Management</strong>, add your name and the e-mail of your Spotify account (apps in development mode only accept the listed accounts).</li>
+<li>In NVDA, open the NVDA menu, Preferences, Settings, <strong>Spotify</strong> category, paste the Client ID in <strong>Spotify Client ID</strong> and press OK.</li>
+</ol>
+<p>The Client ID is not a password: with PKCE, no secret is stored on the computer.</p>
+<h2>Sign in</h2>
+<ol>
+<li>Press <strong>NVDA+Alt+P</strong> to open the Spotify window.</li>
+<li>Choose <strong>Sign in with Spotify</strong>. The browser opens Spotify's own login page.</li>
+<li>Sign in and choose <strong>Agree</strong>. The page says you can close the tab.</li>
+<li>NVDA says "Signed in to Spotify as …" and the window shows your playlists.</li>
+</ol>
+<p>You stay signed in the next times you start NVDA, also after updating the add-on. The session is encrypted with the Windows data protection, only for your Windows user.</p>
+<h2>Songs of the playlists</h2>
+<p>The results are a tree: Right Arrow opens a playlist and shows its songs, Left Arrow closes it, Enter on a song plays the playlist from that song and Delete on a playlist deletes it (after confirming). The Type box also offers <strong>Songs in my playlists</strong>, which searches inside your playlists ignoring accents and case. <strong>Order songs…</strong> sorts a playlist by title, artist, album, date added or duration and, for your own playlists, can save the new order on Spotify. Spotify only shows the songs of playlists you own or collaborate on.</p>
+<h2>Shortcuts</h2>
+<table>
+<tr><th>Shortcut</th><th>Action</th></tr>
+<tr><td>NVDA+Alt+P</td><td>Open the Spotify window</td></tr>
+<tr><td>NVDA+Alt+Space</td><td>Play or pause</td></tr>
+<tr><td>NVDA+Alt+Right Arrow</td><td>Next song</td></tr>
+<tr><td>NVDA+Alt+Left Arrow</td><td>Previous song</td></tr>
+<tr><td>NVDA+Alt+Up Arrow</td><td>Volume up</td></tr>
+<tr><td>NVDA+Alt+Down Arrow</td><td>Volume down</td></tr>
+<tr><td>NVDA+Alt+A</td><td>Say what is playing</td></tr>
+<tr><td>NVDA+Alt+U</td><td>Continue the last song</td></tr>
+</table>
+<p>They can be changed in NVDA, Preferences, Input gestures, Spotify category, where there is also a "Sign out" command without a shortcut.</p>
+<h2>Where the sound comes from</h2>
+<p>The add-on controls Spotify Connect: the sound comes from the Spotify app on this computer (or a phone, speaker, wherever it is playing). If no device is open, the add-on starts the Spotify app <strong>in the background</strong>: minimized, without taking the focus and with its window hidden (no taskbar button, no Alt+Tab). A Spotify you opened yourself is never touched. Spotify only allows playback through its own apps, so it must be installed; the add-on just keeps it out of sight (setting: Keep the Spotify app hidden). Playback control through the Spotify API <strong>needs Spotify Premium</strong>; listing, searching and creating playlists work with any account.</p>
+<h2>Privacy and security</h2>
+<ul>
+<li>Sign-in on Spotify's official page with PKCE: the add-on never sees your password.</li>
+<li>Tokens encrypted with the Windows data protection; never in the log, in speech or in nvda.ini.</li>
+<li>Connections only to Spotify, over HTTPS with verified certificates.</li>
+<li>To also remove the permission on Spotify's site, use <a href="https://www.spotify.com/account/apps/">spotify.com/account/apps</a>.</li>
+</ul>
+</main>
+</body>
+</html>

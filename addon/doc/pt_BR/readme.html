@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>SpotifyNVDA</title>
+</head>
+<body>
+<main>
+<h1>SpotifyNVDA</h1>
+<p>Complemento do NVDA para ouvir o Spotify com a sua conta: as suas playlists, busca de músicas e de playlists, criação de playlists, tocar e pausar, trocar de música, mudar o volume e continuar a última música, tudo pelo teclado e com respostas faladas.</p>
+<h2>Antes de começar (uma vez só)</h2>
+<p>O Spotify pede que cada pessoa use um "aplicativo" próprio, criado de graça no painel de desenvolvedor. Faça assim:</p>
+<ol>
+<li>Entre em <a href="https://developer.spotify.com/dashboard">developer.spotify.com/dashboard</a> com a sua conta do Spotify e aceite os termos, se pedir.</li>
+<li>Escolha <strong>Create app</strong>. Preencha nome (por exemplo, "Meu NVDA") e descrição.</li>
+<li>Em <strong>Redirect URIs</strong>, coloque exatamente <code>http://127.0.0.1:8898/callback</code> e escolha <strong>Add</strong>.</li>
+<li>Em <strong>Which API/SDKs are you planning to use?</strong>, marque <strong>Web API</strong>. Aceite os termos e salve.</li>
+<li>Abra o aplicativo criado, vá em <strong>Settings</strong> e copie o <strong>Client ID</strong> (32 letras e números).</li>
+<li>Em <strong>User Management</strong>, cadastre o seu nome e o e-mail da sua conta do Spotify (aplicativos em modo de desenvolvimento só aceitam as contas da lista).</li>
+<li>No NVDA, abra o menu NVDA, Preferências, Configurações, categoria <strong>Spotify</strong>, cole o Client ID em <strong>Client ID do Spotify</strong> e confirme com OK.</li>
+</ol>
+<p>O Client ID não é uma senha: com o método PKCE usado pelo complemento, nenhum segredo fica guardado no computador.</p>
+<h2>Entrar na conta</h2>
+<ol>
+<li>Pressione <strong>NVDA+Alt+P</strong> para abrir a janela Spotify.</li>
+<li>Escolha <strong>Entrar com o Spotify</strong>. O navegador abre a página de login do próprio Spotify.</li>
+<li>Entre na sua conta e escolha <strong>Concordo</strong> (Agree). A página diz que você já pode fechar a aba.</li>
+<li>O NVDA anuncia "Conectado ao Spotify como …" e a janela mostra as suas playlists.</li>
+</ol>
+<p>Você continua conectado nas próximas vezes que abrir o NVDA, inclusive depois de atualizar o complemento. A sessão fica criptografada com a proteção de dados do Windows, só para o seu usuário.</p>
+<h2>Janela Spotify</h2>
+<table>
+<tr><th>Controle</th><th>O que faz</th></tr>
+<tr><td>Situação</td><td>Diz se você está conectado, com qual nome e se a conta é Premium</td></tr>
+<tr><td>Entrar com o Spotify / Sair da conta</td><td>Entra ou sai da conta. Sair apaga a sessão e os dados guardados neste computador</td></tr>
+<tr><td>Buscar e Tipo</td><td>Digite e pressione Enter. Tipo: Músicas, Playlists ou Músicas nas minhas playlists (busca dentro das suas playlists, sem diferenciar acentos)</td></tr>
+<tr><td>Resultados</td><td>Árvore com as suas playlists ou o resultado da busca. Seta para a direita abre a playlist e mostra as músicas; Seta para a esquerda fecha. Enter toca a playlist ou, em uma música, toca a playlist a partir dela. Delete em uma playlist exclui</td></tr>
+<tr><td>Tocar</td><td>Toca a música ou a playlist selecionada</td></tr>
+<tr><td>Adicionar à playlist…</td><td>Coloca a música selecionada em uma das suas playlists</td></tr>
+<tr><td>Minhas playlists</td><td>Mostra as suas playlists</td></tr>
+<tr><td>Nova playlist…</td><td>Cria uma playlist (nome, descrição, pública ou não) e pode já colocar a música selecionada</td></tr>
+<tr><td>Ordenar músicas…</td><td>Ordena a playlist selecionada por ordem da playlist, título, artista, álbum, data em que foi adicionada ou duração. Nas suas playlists, pode gravar a nova ordem no Spotify</td></tr>
+<tr><td>Excluir playlist</td><td>Tira a playlist selecionada da sua biblioteca, depois de confirmar. Uma playlist sua pode ser recuperada na sua conta do Spotify, em Recuperar playlists</td></tr>
+<tr><td>Continuar última música</td><td>Continua a última música tocada na sua conta, do ponto em que parou</td></tr>
+<tr><td>Tocar ou pausar</td><td>Toca ou pausa</td></tr>
+<tr><td>Fechar</td><td>Fecha a janela (Esc também fecha)</td></tr>
+</table>
+<h2>Músicas das playlists</h2>
+<p>O Spotify só mostra as músicas das playlists que são suas ou em que você colabora. Nas playlists de outras pessoas que você segue, a árvore avisa isso em vez de mostrar as músicas; elas continuam podendo ser tocadas inteiras.</p>
+<h2>Atalhos</h2>
+<table>
+<tr><th>Atalho</th><th>Ação</th></tr>
+<tr><td>NVDA+Alt+P</td><td>Abrir a janela Spotify</td></tr>
+<tr><td>NVDA+Alt+Espaço</td><td>Tocar ou pausar</td></tr>
+<tr><td>NVDA+Alt+Seta para a direita</td><td>Próxima música</td></tr>
+<tr><td>NVDA+Alt+Seta para a esquerda</td><td>Música anterior</td></tr>
+<tr><td>NVDA+Alt+Seta para cima</td><td>Aumentar o volume</td></tr>
+<tr><td>NVDA+Alt+Seta para baixo</td><td>Abaixar o volume</td></tr>
+<tr><td>NVDA+Alt+A</td><td>Dizer o que está tocando</td></tr>
+<tr><td>NVDA+Alt+U</td><td>Continuar a última música</td></tr>
+</table>
+<p>Todos podem ser mudados em NVDA, Preferências, Definir comandos, categoria Spotify. Lá também existe o comando "Sair da conta", sem atalho definido.</p>
+<h2>De onde vem o som</h2>
+<p>O complemento controla o Spotify Connect: o som sai do aplicativo do Spotify neste computador (ou no celular, na caixa de som, onde estiver tocando).</p>
+<p>Se nenhum dispositivo estiver aberto, o complemento abre o aplicativo do Spotify <strong>em segundo plano</strong>: minimizado, sem tirar o foco de onde você está e com a janela escondida (não aparece na barra de tarefas nem no Alt+Tab). Você só ouve a música. Se o Spotify já estiver aberto por você, o complemento não mexe nele.</p>
+<p>O Spotify só permite tocar as músicas pelos aplicativos dele, por isso o aplicativo precisa estar instalado; o complemento só o usa escondido. Para ver a janela do Spotify, abra-o pelo menu Iniciar.</p>
+<p>Tocar, pausar, trocar de música e mudar o volume pela API do Spotify <strong>exigem Spotify Premium</strong>. Sem Premium, listar, buscar e criar playlists continuam funcionando.</p>
+<h2>Configurações (NVDA, Preferências, Configurações, Spotify)</h2>
+<ul>
+<li><strong>Client ID do Spotify</strong>: o identificador do seu aplicativo no painel do Spotify.</li>
+<li><strong>Porta do retorno</strong>: porta usada para voltar do login (padrão 8898). Se mudar, cadastre o novo endereço mostrado logo abaixo no painel do Spotify.</li>
+<li><strong>Passo do volume (%)</strong>: quanto o volume muda a cada atalho (padrão 10).</li>
+<li><strong>Abrir o aplicativo do Spotify quando não houver dispositivo</strong>.</li>
+<li><strong>Manter o aplicativo do Spotify escondido</strong>: toca em segundo plano, sem janela (ligada por padrão).</li>
+<li><strong>Abrir o painel de desenvolvedor do Spotify</strong> e <strong>Sair da conta do Spotify</strong>.</li>
+</ul>
+<h2>Privacidade e segurança</h2>
+<ul>
+<li>Login pela página oficial do Spotify, com PKCE: o complemento nunca vê a sua senha.</li>
+<li>Tokens criptografados com a proteção de dados do Windows; nunca vão para o log, para a fala ou para o arquivo nvda.ini.</li>
+<li>Conexões só com o Spotify, em HTTPS com certificado verificado.</li>
+<li>Para remover também a permissão no site do Spotify, use a página de aplicativos da sua conta: <a href="https://www.spotify.com/account/apps/">spotify.com/account/apps</a>.</li>
+</ul>
+<h2>Problemas comuns</h2>
+<table>
+<tr><th>Mensagem</th><th>O que fazer</th></tr>
+<tr><td>Informe o Client ID…</td><td>Siga "Antes de começar"</td></tr>
+<tr><td>Esta conta não está cadastrada no seu aplicativo…</td><td>Cadastre o seu e-mail em User Management no painel</td></tr>
+<tr><td>A porta … já está em uso</td><td>Escolha outra porta nas configurações e cadastre o novo endereço no painel</td></tr>
+<tr><td>Tocar músicas por aqui exige Spotify Premium</td><td>A conta é gratuita</td></tr>
+<tr><td>Nenhum dispositivo do Spotify disponível</td><td>Abra o aplicativo do Spotify e tente de novo</td></tr>
+</table>
+</main>
+</body>
+</html>
