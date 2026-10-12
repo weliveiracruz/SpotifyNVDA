@@ -637,5 +637,84 @@
     "failures": []
    }
   ]
+ },
+ {
+  "number": 9,
+  "date": "2026-10-12T00:08:31-03:00",
+  "version": "1.2.0",
+  "note": "testes compilam a tradução sozinhos (falha do GitHub Actions)",
+  "pythons": [
+   "3.11",
+   "3.13"
+  ],
+  "total": 510,
+  "passed": 510,
+  "failed": 0,
+  "corrected": [],
+  "suites": [
+   {
+    "suite": "unit (python 3.11)",
+    "total": 86,
+    "passed": 86,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "unit (python 3.13)",
+    "total": 86,
+    "passed": 86,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "interface (test_gui)",
+    "total": 112,
+    "passed": 112,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility)",
+    "total": 75,
+    "passed": 75,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "accessibility (test_accessibility, pt_BR)",
+    "total": 75,
+    "passed": 75,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "translation (test_translation)",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "security (test_security)",
+    "total": 59,
+    "passed": 59,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "NVDA installed (test_nvda_runtime)",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+   },
+   {
+    "suite": "package (build.py)",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failures": []
+   }
+  ]
  }
 ]

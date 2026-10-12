@@ -378,10 +378,11 @@ def run():
 	# -- documentation --------------------------------------------------------------------------------
 	for docLang in ("en", "pt_BR"):
 		path = os.path.join(HERE, "..", "addon", "doc", docLang, "readme.html")
+		docHtml = ""
 		if os.path.isfile(path):
 			with open(path, encoding="utf-8") as f:
 				docHtml = f.read()
-			R.check("ACE-16 documentation %s has language, headings and real tables" % docLang, ('lang="%s"' % docLang.replace("_", "-")) in docHtml and "<h2>" in docHtml and "<th>" in docHtml)
+		R.check("ACE-16 documentation %s has language, headings and real tables" % docLang, ('lang="%s"' % docLang.replace("_", "-")) in docHtml and "<h2>" in docHtml and "<th>" in docHtml)
 
 
 def plain_text(english):

@@ -54,7 +54,15 @@ def install(configPath=None, withGui=True, secure=False):
 	addonHandler = _module("addonHandler")
 	lang = os.environ.get("SPOTIFYNVDA_LANG")
 	if lang and lang != "en":
-		translation = gettext.translation("nvda", localedir=os.path.join(ROOT, "addon", "locale"), languages=[lang])
+		# Compiles the .po here: the .mo is a build product (not in git), so the
+		# tests never depend on build.py having run before them.
+		sys.path.insert(0, ROOT)
+		import build
+
+		localeDir = tempfile.mkdtemp(prefix="spotifynvda-locale-")
+		os.makedirs(os.path.join(localeDir, lang, "LC_MESSAGES"))
+		build.writeMo(build.parsePo(os.path.join(ROOT, "addon", "locale", lang, "LC_MESSAGES", "nvda.po")), os.path.join(localeDir, lang, "LC_MESSAGES", "nvda.mo"))
+		translation = gettext.translation("nvda", localedir=localeDir, languages=[lang])
 		gettextFunc = translation.gettext
 	else:
 		gettextFunc = lambda s: s  # noqa: E731
