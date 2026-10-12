@@ -31,8 +31,17 @@ Novos nesta versão: 19 de unidade (FUN-20 a FUN-23), 40 de interface, 19 de ace
 | 7 | 510 | 510 | 0 | Primeira execução completa da 1.2.0 |
 | 8 | 510 | 510 | 0 | `build.py --release` (portão da versão) |
 
-As falhas encontradas antes, ao rodar cada suíte durante a construção, estão em [PROBLEMAS-1.2.0.md](PROBLEMAS-1.2.0.md): 1 do complemento e 4 dos testes.
+As falhas encontradas antes, ao rodar cada suíte durante a construção, estão em [PROBLEMAS-1.2.0.md](PROBLEMAS-1.2.0.md): 1 do complemento e 6 dos testes (T-12 e T-13 apareceram no GitHub Actions).
 
-## Pendente: roteiro manual
+## GitHub Actions
 
-MAN-18 a MAN-22 de [TESTES-MANUAIS.md](../docs/TESTES-MANUAIS.md), com a sua conta: abrir playlists, tocar a partir de uma música, buscar nas playlists, ordenar (e gravar) e excluir uma playlist de teste.
+Depois das correções T-12 e T-13, todas as suítes passaram no Windows do GitHub (Python 3.11 e 3.13). A versão foi publicada pela automação a partir da tag `v1.2.0` (commit `348dc4a`): [release v1.2.0](https://github.com/weliveiracruz/SpotifyNVDA/releases/tag/v1.2.0).
+
+## Roteiro manual
+
+| Item | Resultado |
+|---|---|
+| Quem testou | Wellington Cruz, com a própria conta do Spotify e o NVDA |
+| Data | 12/10/2026 |
+| Casos | MAN-18 a MAN-22 de [TESTES-MANUAIS.md](../docs/TESTES-MANUAIS.md): abrir playlists, tocar a partir de uma música, buscar nas playlists, ordenar (e gravar) e excluir uma playlist |
+| Resultado | Aprovado: o usuário informou que está funcionando |
