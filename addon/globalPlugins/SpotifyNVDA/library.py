@@ -66,11 +66,11 @@ class Library:
 
 	# -- songs of a playlist ---------------------------------------------------------
 
-	def items(self, playlistId, refresh=False):
+	def items(self, playlistId, refresh=False, onTotal=None):
 		with self._lock:
 			if not refresh and playlistId in self._items:
 				return list(self._items[playlistId])
-		entries = self.client.playlistItems(playlistId)
+		entries = self.client.playlistItems(playlistId, onTotal=onTotal)
 		with self._lock:
 			self._items[playlistId] = entries
 		return list(entries)
@@ -133,6 +133,22 @@ class Library:
 			if hits:
 				found.append((playlist, hits))
 		return found, skipped
+
+	# -- remove a song -------------------------------------------------------------------
+
+	def copies(self, playlistId, uri):
+		"""How many times a song is in the playlist (Spotify removes all of them)."""
+		return sum(1 for e in (self.cached(playlistId) or []) if e.get("uri") == uri) or 1
+
+	def removeSong(self, playlistId, entry):
+		"""Removes a song (every copy of it) from the playlist. Returns the number of copies."""
+		uri = entry.get("uri")
+		if not entry.get("playable", True) or not uri:
+			raise SpotifyError("restricted", "song cannot be removed")
+		count = self.copies(playlistId, uri)
+		self.client.removeFromPlaylist(playlistId, [uri])
+		self.forget(playlistId)
+		return count
 
 	# -- save an order on Spotify --------------------------------------------------------
 

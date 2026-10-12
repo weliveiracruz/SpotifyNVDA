@@ -146,6 +146,15 @@ VK_RIGHT = 0x27
 VK_LEFT = 0x25
 
 
+def userSelect(dlg, node):
+	"""The user moving to an item with the keyboard: the tree has the focus and
+	the selection changes (the add-on did not select it itself)."""
+	dlg.resultsTree.SetFocus()
+	wx.Yield()
+	dlg.resultsTree.SelectItem(node)
+	wx.Yield()
+
+
 def activate(dlg):
 	"""What Enter or a double click on a tree item generates."""
 	tree = dlg.resultsTree

@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: addon/globalPlugins/SpotifyNVDA/__init__.py:38 addon/globalPlugins/SpotifyNVDA/mainDialog.py:155 addon/globalPlugins/SpotifyNVDA/mainDialog.py:504 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:24 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:108 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:92
+#: addon/globalPlugins/SpotifyNVDA/__init__.py:38 addon/globalPlugins/SpotifyNVDA/mainDialog.py:158 addon/globalPlugins/SpotifyNVDA/mainDialog.py:586 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:24 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:108 addon/globalPlugins/SpotifyNVDA/settingsPanel.py:92
 msgid "Spotify"
 msgstr "Spotify"
 
@@ -74,171 +74,175 @@ msgstr "Próxima música"
 msgid "Previous song"
 msgstr "Música anterior"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:274
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:279
 msgid "&Results:"
 msgstr "&Resultados:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:37
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:334
+msgid "&Play/pause"
+msgstr "&Tocar/pausar"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:40
 msgid "&Name:"
 msgstr "&Nome:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:40
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:43
 msgid "&Description:"
 msgstr "&Descrição:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:93
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:96
 msgid "Sort &by:"
 msgstr "Ordenar &por:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:97
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:100
 msgid "&Order:"
 msgstr "&Sentido:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:164
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:171
 msgid "S&tatus:"
 msgstr "&Situação:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:175
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:182
 msgid "&Search for:"
 msgstr "&Buscar:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:179
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:186
 msgid "T&ype:"
 msgstr "Ti&po:"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:742
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:819
+msgid "Remove from playlist"
+msgstr "Remover da playlist"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:868
 msgid "Save order"
 msgstr "Gravar ordem"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:764
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:890
 msgid "Delete playlist"
 msgstr "Excluir playlist"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:34 addon/globalPlugins/SpotifyNVDA/mainDialog.py:67
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:37 addon/globalPlugins/SpotifyNVDA/mainDialog.py:70
 msgid "New playlist"
 msgstr "Nova playlist"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:65
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:68
 msgid "Type a name for the playlist."
 msgstr "Digite um nome para a playlist."
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:168 addon/globalPlugins/SpotifyNVDA/mainDialog.py:288
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:175 addon/globalPlugins/SpotifyNVDA/mainDialog.py:293
 msgid "Sign &in with Spotify"
 msgstr "&Entrar com o Spotify"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:170
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:177
 msgid "Sign &out"
 msgstr "Sa&ir da conta"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:203
-msgid "&Play"
-msgstr "&Tocar"
-
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:205
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:213
 msgid "&Add to playlist…"
 msgstr "&Adicionar à playlist…"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:207
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:215
+msgid "Remo&ve from playlist"
+msgstr "Rem&over da playlist"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:217
 msgid "&My playlists"
 msgstr "&Minhas playlists"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:209
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:219
 msgid "&New playlist…"
 msgstr "&Nova playlist…"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:213
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:223
 msgid "Or&der songs…"
 msgstr "Or&denar músicas…"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:215
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:225
 msgid "D&elete playlist"
 msgstr "E&xcluir playlist"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:217
-msgid "&Continue last song"
-msgstr "C&ontinuar última música"
-
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:219
-msgid "Play/pa&use"
-msgstr "Tocar o&u pausar"
-
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:221
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:227
 msgid "C&lose"
 msgstr "&Fechar"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:285
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:290
 msgid "Cancel sign-&in"
 msgstr "Cancelar &entrada"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:568
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:338
+msgid "&Play {name}"
+msgstr "&Tocar {name}"
+
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:650
 msgid "Type what you want to search for."
 msgstr "Digite o que você quer buscar."
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:660
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:753
 msgid "Add to playlist"
 msgstr "Adicionar à playlist"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:43
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:46
 msgid "&Public playlist"
 msgstr "Playlist &pública"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:101
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:104
 msgid "Ascending (A to Z, oldest first, shortest first)"
 msgstr "Crescente (de A a Z, mais antigas primeiro, mais curtas primeiro)"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:103
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:106
 msgid "Descending (Z to A, newest first, longest first)"
 msgstr "Decrescente (de Z a A, mais recentes primeiro, mais longas primeiro)"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:183
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:190
 msgid "Songs"
 msgstr "Músicas"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:185
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:192
 msgid "Playlists"
 msgstr "Playlists"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:187
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:194
 msgid "Songs in my playlists"
 msgstr "Músicas nas minhas playlists"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:192
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:199
 msgid "Searc&h"
 msgstr "Bus&car"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:263
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:268
 msgid "&Results: my playlists ({count})"
 msgstr "&Resultados: minhas playlists ({count})"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:266
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:271
 msgid "&Results: songs found ({count})"
 msgstr "&Resultados: músicas encontradas ({count})"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:269
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:274
 msgid "&Results: playlists found ({count})"
 msgstr "&Resultados: playlists encontradas ({count})"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:272
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:277
 msgid "&Results: songs in my playlists ({count})"
 msgstr "&Resultados: músicas nas minhas playlists ({count})"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:652
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:745
 msgid "You have no playlist of your own yet. Use New playlist."
 msgstr "Você ainda não tem uma playlist sua. Use Nova playlist."
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:90
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:93
 msgid "Sort {name}"
 msgstr "Ordenar {name}"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:112
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:115
 msgid "&Save this order on Spotify (changes the playlist on every device)"
 msgstr "&Gravar esta ordem no Spotify (muda a playlist em todos os aparelhos)"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:658
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:751
 msgid "Choose the playlist for {song}"
 msgstr "Escolha a playlist para {song}"
 
-#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:49
+#: addon/globalPlugins/SpotifyNVDA/mainDialog.py:52
 msgid "Add the &selected song: {song}"
 msgstr "Adicionar a música &selecionada: {song}"
 
@@ -474,6 +478,18 @@ msgstr "Excluir a playlist {name}? Ela sairá da sua biblioteca do Spotify. Uma 
 msgid "Playlist {name} deleted"
 msgstr "Playlist {name} excluída"
 
+#: addon/globalPlugins/SpotifyNVDA/messages.py:308
+msgid "Loading {count} songs…"
+msgstr "Carregando {count} músicas…"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:316
+msgid "Remove {song} from {playlist}?"
+msgstr "Remover {song} de {playlist}?"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:321
+msgid "{song} removed from {playlist}"
+msgstr "{song} removida de {playlist}"
+
 #: addon/globalPlugins/SpotifyNVDA/messages.py:36
 msgid "Port {port} is already in use by another program. Choose another port in NVDA settings, Spotify category, and register the new redirect address in the Spotify dashboard."
 msgstr "A porta {port} já está em uso por outro programa. Escolha outra porta nas configurações do NVDA, categoria Spotify, e cadastre o novo endereço de retorno no painel do Spotify."
@@ -513,6 +529,10 @@ msgstr "{song} (indisponível para tocar)"
 #: addon/globalPlugins/SpotifyNVDA/messages.py:274
 msgid "{name} sorted by {key}, descending"
 msgstr "{name} ordenada por {key}, decrescente"
+
+#: addon/globalPlugins/SpotifyNVDA/messages.py:314
+msgid "Remove {song} from {playlist}? This song is {copies} times in the playlist and Spotify removes every copy."
+msgstr "Remover {song} de {playlist}? Esta música aparece {copies} vezes na playlist e o Spotify remove todas as cópias."
 
 #: addon/globalPlugins/SpotifyNVDA/messages.py:91
 msgid "{name} - {owner}, {count} songs"

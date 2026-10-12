@@ -5,6 +5,7 @@
 # Copyright (C) 2026 Wellington Cruz
 # This file is covered by the GNU General Public License, version 2.
 
+import contextlib
 import threading
 
 import addonHandler
@@ -24,6 +25,8 @@ addonHandler.initTranslation()
 KIND_TRACK = 0
 KIND_PLAYLIST = 1
 KIND_IN_PLAYLISTS = 2
+#: Above this many songs, opening a playlist says how many are coming.
+BIG_PLAYLIST = 200
 
 
 class NewPlaylistDialog(wx.Dialog):
@@ -158,6 +161,10 @@ class SpotifyDialog(wx.Dialog):
 		self.topCount = 0
 		self.myPlaylists = None
 		self._signInCancel = None
+		#: True when the user moved to an item of the tree that was not played yet.
+		self._freshSelection = False
+		#: Above 0 while the add-on itself changes the tree (not the user).
+		self._programmatic = 0
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# Translators: label of the read-only status field of the Spotify window.
@@ -199,10 +206,13 @@ class SpotifyDialog(wx.Dialog):
 		sHelper.addItem(self.resultsTree, flag=wx.EXPAND, proportion=1)
 
 		actions = guiHelper.ButtonHelper(wx.HORIZONTAL)
-		# Translators: button that plays the selected song or playlist.
-		self.playButton = actions.addButton(self, label=_("&Play"))
+		# One button plays: the item just chosen in the tree ("Play <name>") or,
+		# otherwise, plays/pauses Spotify and continues the last song when nothing is loaded.
+		self.playButton = actions.addButton(self, label=self._playPauseLabel())
 		# Translators: button that adds the selected song to a playlist.
 		self.addButton = actions.addButton(self, label=_("&Add to playlist…"))
+		# Translators: button that removes the selected song from its playlist.
+		self.removeButton = actions.addButton(self, label=_("Remo&ve from playlist"))
 		# Translators: button that lists the user playlists.
 		self.myPlaylistsButton = actions.addButton(self, label=_("&My playlists"))
 		# Translators: button that creates a playlist.
@@ -213,10 +223,6 @@ class SpotifyDialog(wx.Dialog):
 		self.sortButton = actions2.addButton(self, label=_("Or&der songs…"))
 		# Translators: button that deletes the selected playlist.
 		self.deleteButton = actions2.addButton(self, label=_("D&elete playlist"))
-		# Translators: button that continues the last song played on the account.
-		self.resumeButton = actions2.addButton(self, label=_("&Continue last song"))
-		# Translators: button that plays or pauses.
-		self.playPauseButton = actions2.addButton(self, label=_("Play/pa&use"))
 		# Translators: button that closes the Spotify window.
 		self.closeButton = actions2.addButton(self, id=wx.ID_CLOSE, label=_("C&lose"))
 		sHelper.addItem(actions2)
@@ -235,14 +241,13 @@ class SpotifyDialog(wx.Dialog):
 		self.resultsTree.Bind(wx.EVT_TREE_ITEM_EXPANDING, self.onExpanding)
 		self.resultsTree.Bind(wx.EVT_TREE_SEL_CHANGED, self.onSelectionChanged)
 		self.resultsTree.Bind(wx.EVT_TREE_KEY_DOWN, self.onTreeKey)
-		self.playButton.Bind(wx.EVT_BUTTON, self.onPlay)
+		self.playButton.Bind(wx.EVT_BUTTON, self.onPlayButton)
 		self.addButton.Bind(wx.EVT_BUTTON, self.onAddToPlaylist)
+		self.removeButton.Bind(wx.EVT_BUTTON, self.onRemoveSong)
 		self.myPlaylistsButton.Bind(wx.EVT_BUTTON, lambda evt: self.loadMyPlaylists())
 		self.newPlaylistButton.Bind(wx.EVT_BUTTON, self.onNewPlaylist)
 		self.sortButton.Bind(wx.EVT_BUTTON, self.onSort)
 		self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
-		self.resumeButton.Bind(wx.EVT_BUTTON, lambda evt: self.plugin.resumeLast())
-		self.playPauseButton.Bind(wx.EVT_BUTTON, lambda evt: self.plugin.playPause())
 		self.closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
 		self.Bind(wx.EVT_CLOSE, self.onClose)
 
@@ -288,7 +293,7 @@ class SpotifyDialog(wx.Dialog):
 			self.signInButton.SetLabel(_("Sign &in with Spotify"))
 		self.signInButton.Show(not signedIn)
 		self.signOutButton.Show(signedIn)
-		for ctrl in (self.searchEdit, self.kindChoice, self.searchButton, self.resultsTree, self.myPlaylistsButton, self.newPlaylistButton, self.resumeButton, self.playPauseButton):
+		for ctrl in (self.searchEdit, self.kindChoice, self.searchButton, self.resultsTree, self.myPlaylistsButton, self.newPlaylistButton, self.playButton):
 			ctrl.Enable(signedIn)
 		if not signedIn:
 			self.clearTree(None)
@@ -297,8 +302,51 @@ class SpotifyDialog(wx.Dialog):
 
 	def onSelectionChanged(self, evt):
 		# The tree also sends this event while the window is being destroyed.
-		if self._alive():
-			self.updateButtons()
+		if not self._alive():
+			return
+		if not self._programmatic and self.resultsTree.HasFocus():
+			self._freshSelection = True
+		self.updateButtons()
+
+	@contextlib.contextmanager
+	def programmatic(self):
+		"""Changes of the tree made by the add-on: they are not a choice of the user."""
+		self._programmatic += 1
+		try:
+			yield
+		finally:
+			self._programmatic -= 1
+
+	def select(self, node):
+		with self.programmatic():
+			self.resultsTree.SelectItem(node)
+		self._freshSelection = False
+		self.updateButtons()
+
+	def offerSelection(self):
+		"""After a search, the play button offers the result that is selected."""
+		self._freshSelection = True
+		self.updateButtons()
+
+	@staticmethod
+	def _playPauseLabel():
+		# Translators: the play button when no new item was chosen: plays or pauses Spotify (and continues the last song when nothing is loaded).
+		return _("&Play/pause")
+
+	def _playItemLabel(self, item):
+		# Translators: the play button after choosing an item in the tree. {name} is the song or playlist.
+		return _("&Play {name}").format(name=(item.get("name") or "").replace("&", "&&"))
+
+	def chosenItem(self):
+		"""The playable item the user just moved to in the tree, or None."""
+		if not self._freshSelection:
+			return None
+		node, data = self.selectedNode()
+		if not data or data.get("node") not in ("playlist", "track"):
+			return None
+		if data["node"] == "track" and not data["item"].get("playable", True):
+			return None
+		return data["item"]
 
 	def updateButtons(self):
 		signedIn = self.service.signedIn
@@ -306,8 +354,15 @@ class SpotifyDialog(wx.Dialog):
 		kind = data.get("node") if data else None
 		item = data.get("item") if data else None
 		playableTrack = kind == "track" and item.get("playable", True)
-		self.playButton.Enable(signedIn and (kind == "playlist" or playableTrack))
+		chosen = self.chosenItem()
+		label = self._playItemLabel(chosen) if chosen else self._playPauseLabel()
+		if self.playButton.GetLabel() != label:
+			self.playButton.SetLabel(label)
+			self.Layout()
+		self.playButton.Enable(signedIn)
 		self.addButton.Enable(signedIn and playableTrack)
+		inPlaylist = data.get("playlist") if kind == "track" else None
+		self.removeButton.Enable(bool(signedIn and playableTrack and inPlaylist and self._isMine(inPlaylist)))
 		self.sortButton.Enable(signedIn and self.playlistOf(node) is not None)
 		self.deleteButton.Enable(signedIn and kind == "playlist")
 
@@ -348,7 +403,9 @@ class SpotifyDialog(wx.Dialog):
 	def clearTree(self, kind):
 		self.listKind = kind
 		self.topCount = 0
-		self.resultsTree.DeleteChildren(self.root)
+		self._freshSelection = False
+		with self.programmatic():
+			self.resultsTree.DeleteChildren(self.root)
 		self.resultsLabel.SetLabel(self._resultsLabel(0))
 
 	def _setCount(self, count):
@@ -390,7 +447,7 @@ class SpotifyDialog(wx.Dialog):
 	def selectFirst(self):
 		first, _cookie = self.resultsTree.GetFirstChild(self.root)
 		if first.IsOk():
-			self.resultsTree.SelectItem(first)
+			self.select(first)
 
 	def selectedNode(self):
 		node = self.resultsTree.GetSelection()
@@ -416,23 +473,32 @@ class SpotifyDialog(wx.Dialog):
 		data = tree.GetItemData(node)
 		playlist = data["item"]
 		wasExpanded = tree.IsExpanded(node)
-		tree.DeleteChildren(node)
-		data["loaded"] = True
-		if entries is None:
-			tree.AppendItem(node, messages.songsHidden(), data={"node": "info"})
-			return 0
-		entries = self.service.library.sorted(playlist["id"], entries)
-		if data.get("filter"):
-			entries = [e for e in entries if library.matches(e, data["filter"])]
-		if not entries:
-			tree.AppendItem(node, messages.playlistEmpty(), data={"node": "info"})
-		for entry in entries:
-			self.addTrackNode(node, entry, playlist)
-		if wasExpanded:
-			tree.Expand(node)
+		with self.programmatic():
+			tree.Freeze()
+			try:
+				tree.DeleteChildren(node)
+				data["loaded"] = True
+				if entries is None:
+					tree.AppendItem(node, messages.songsHidden(), data={"node": "info"})
+					return 0
+				entries = self.service.library.sorted(playlist["id"], entries)
+				if data.get("filter"):
+					entries = [e for e in entries if library.matches(e, data["filter"])]
+				else:
+					# The real number of songs, also in the name of the playlist.
+					playlist["total"] = len(entries)
+					tree.SetItemText(node, messages.itemText(playlist))
+				if not entries:
+					tree.AppendItem(node, messages.playlistEmpty(), data={"node": "info"})
+				for entry in entries:
+					self.addTrackNode(node, entry, playlist)
+				if wasExpanded:
+					tree.Expand(node)
+			finally:
+				tree.Thaw()
 		return len(entries)
 
-	def loadPlaylistNode(self, node, announce=True):
+	def loadPlaylistNode(self, node, announce=True, selectIndex=None):
 		data = self.resultsTree.GetItemData(node)
 		if data.get("loading"):
 			return
@@ -440,9 +506,14 @@ class SpotifyDialog(wx.Dialog):
 		playlistId = data["item"]["id"]
 		lib = self.service.library
 
+		def total(count):
+			# Big playlists take a few seconds: say how many songs are coming.
+			if announce and count > BIG_PLAYLIST:
+				self.plugin.speak(messages.loadingSongs(count))
+
 		def load():
 			try:
-				return lib.items(playlistId)
+				return lib.items(playlistId, onTotal=total)
 			except SpotifyError as e:
 				if e.kind == "forbidden":
 					return None
@@ -453,6 +524,13 @@ class SpotifyDialog(wx.Dialog):
 			if not node.IsOk():
 				return
 			count = self.renderPlaylist(node, entries)
+			if selectIndex is not None:
+				children = []
+				child, cookie = self.resultsTree.GetFirstChild(node)
+				while child.IsOk():
+					children.append(child)
+					child, cookie = self.resultsTree.GetNextChild(node, cookie)
+				self.select(children[min(selectIndex, len(children) - 1)] if children else node)
 			if announce:
 				self.plugin.speak(messages.songsHidden() if entries is None else messages.songsCount(count))
 
@@ -465,7 +543,7 @@ class SpotifyDialog(wx.Dialog):
 			self.loadPlaylistNode(node)
 		evt.Skip()
 
-	def reloadPlaylist(self, playlistId):
+	def reloadPlaylist(self, playlistId, selectIndex=None):
 		"""After a change on Spotify, the songs are read again where they are shown."""
 		self.service.library.forget(playlistId)
 		tree = self.resultsTree
@@ -475,10 +553,11 @@ class SpotifyDialog(wx.Dialog):
 			if data and data.get("node") == "playlist" and data["item"]["id"] == playlistId and data.get("loaded"):
 				if tree.IsExpanded(child):
 					data["loaded"] = False
-					self.loadPlaylistNode(child, announce=False)
+					self.loadPlaylistNode(child, announce=False, selectIndex=selectIndex)
 				else:
-					tree.DeleteChildren(child)
-					tree.AppendItem(child, messages.loading(), data={"node": "info"})
+					with self.programmatic():
+						tree.DeleteChildren(child)
+						tree.AppendItem(child, messages.loading(), data={"node": "info"})
 					data["loaded"] = False
 			child, cookie = tree.GetNextChild(self.root, cookie)
 
@@ -487,6 +566,9 @@ class SpotifyDialog(wx.Dialog):
 			node, data = self.selectedNode()
 			if data and data.get("node") == "playlist":
 				self.onDelete(evt)
+				return
+			if data and data.get("node") == "track" and data.get("playlist"):
+				self.onRemoveSong(evt)
 				return
 		evt.Skip()
 
@@ -576,6 +658,7 @@ class SpotifyDialog(wx.Dialog):
 
 		def shown(items):
 			self.setTopItems("playlists" if kind == "playlist" else "tracks", items)
+			self.offerSelection()
 			if items:
 				self.plugin.speak(self.resultsLabel.GetLabel().replace("&", ""))
 			else:
@@ -605,7 +688,7 @@ class SpotifyDialog(wx.Dialog):
 				self.resultsTree.Expand(node)
 			self._setCount(total)
 			self.selectFirst()
-			self.updateButtons()
+			self.offerSelection()
 			if total:
 				self.plugin.speak(messages.foundInPlaylists(total, len(found)))
 			else:
@@ -615,10 +698,20 @@ class SpotifyDialog(wx.Dialog):
 
 	# -- actions ---------------------------------------------------------------------
 
+	def onPlayButton(self, evt):
+		"""The single play button: the item just chosen in the tree, otherwise
+		play/pause (which also continues the last song when nothing is loaded)."""
+		if self.chosenItem() is not None:
+			self.onPlay(evt)
+		else:
+			self.plugin.playPause()
+
 	def onPlay(self, evt):
 		node, data = self.selectedNode()
 		if not data or data.get("node") not in ("playlist", "track"):
 			return
+		self._freshSelection = False
+		self.updateButtons()
 		item = data["item"]
 		player = self.service.player
 		if data["node"] == "track" and not item.get("playable", True):
@@ -710,6 +803,39 @@ class SpotifyDialog(wx.Dialog):
 
 		self.run(create, created, focus=self.newPlaylistButton)
 
+	def onRemoveSong(self, evt):
+		node, data = self.selectedNode()
+		if not data or data.get("node") != "track" or not data.get("playlist") or not data["item"].get("playable", True):
+			return
+		playlist = data["playlist"]
+		if not self._isMine(playlist):
+			return
+		entry = data["item"]
+		lib = self.service.library
+		copies = lib.copies(playlist["id"], entry["uri"])
+		answer = gui.messageBox(
+			messages.confirmRemoveSong(messages.trackText(entry), playlist["name"], copies),
+			# Translators: title of the confirmation before removing a song from a playlist.
+			_("Remove from playlist"),
+			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
+			self,
+		)
+		if answer != wx.YES:
+			self.resultsTree.SetFocus()
+			return
+		parent = self.resultsTree.GetItemParent(node)
+		index = 0
+		child, cookie = self.resultsTree.GetFirstChild(parent)
+		while child.IsOk() and child != node:
+			index += 1
+			child, cookie = self.resultsTree.GetNextChild(parent, cookie)
+
+		def removed(_count):
+			self.reloadPlaylist(playlist["id"], selectIndex=index)
+			self.plugin.speak(messages.songRemoved(entry["name"], playlist["name"]))
+
+		self.run(lambda: lib.removeSong(playlist["id"], entry), removed, focus=self.resultsTree)
+
 	def onSort(self, evt):
 		node = self.playlistOf(self.selectedNode()[0])
 		if node is None:
@@ -731,7 +857,7 @@ class SpotifyDialog(wx.Dialog):
 		lib.setSortPref(playlist["id"], values["key"], values["descending"])
 		if data.get("loaded"):
 			self.renderPlaylist(node, lib.cached(playlist["id"]))
-		self.resultsTree.SelectItem(node)
+		self.select(node)
 		self.resultsTree.SetFocus()
 		self.plugin.speak(messages.sortedText(playlist["name"], label, values["descending"]))
 		if not values["save"]:
@@ -777,9 +903,10 @@ class SpotifyDialog(wx.Dialog):
 				following = self.resultsTree.GetNextSibling(node)
 				if not following.IsOk():
 					following = self.resultsTree.GetPrevSibling(node)
-				self.resultsTree.Delete(node)
+				with self.programmatic():
+					self.resultsTree.Delete(node)
 				if following.IsOk():
-					self.resultsTree.SelectItem(following)
+					self.select(following)
 				self._setCount(self._recount())
 			self.updateButtons()
 			self.plugin.speak(messages.deleted(playlist["name"]))

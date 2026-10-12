@@ -18,8 +18,12 @@ API_BASE = "https://api.spotify.com/v1"
 SEARCH_LIMIT = 10
 MAX_QUERY = 200
 MAX_PLAYLISTS = 500
-#: Songs read from one playlist (pages of 50).
-MAX_PLAYLIST_ITEMS = 2000
+#: Songs read from one playlist (pages of 50). 10,000 is the most a Spotify playlist can have.
+MAX_PLAYLIST_ITEMS = 10000
+#: While reading a big playlist, a "wait" from Spotify (429) up to this many seconds is respected.
+MAX_PAGE_RETRY_AFTER = 30
+#: Songs removed per request (Spotify limit).
+MAX_REMOVE = 100
 MAX_PLAYLIST_NAME = 100
 MAX_PLAYLIST_DESCRIPTION = 300
 #: Longest Retry-After (seconds) the client waits by itself, once.
@@ -247,14 +251,17 @@ class SpotifyClient:
 				raise
 			return self.request("POST", "/playlists/%s/tracks" % playlistId, body={"uris": uris})
 
-	def playlistItems(self, playlistId, maxItems=MAX_PLAYLIST_ITEMS):
-		"""Songs of a playlist, in the playlist order. Spotify only shows the songs
-		of playlists the user owns or collaborates on (403 for the others)."""
+	def playlistItems(self, playlistId, maxItems=MAX_PLAYLIST_ITEMS, onTotal=None):
+		"""All the songs of a playlist, in the playlist order. Spotify only shows the
+		songs of playlists the user owns or collaborates on (403 for the others).
+		onTotal(total) is called once, with the real number of songs, after the first page."""
 		playlistId = checkId(playlistId)
 		out = []
 		offset = 0
 		while len(out) < maxItems:
-			page = self.request("GET", "/playlists/%s/items" % playlistId, {"limit": 50, "offset": offset, "additional_types": "track,episode"}) or {}
+			page = self._page(playlistId, offset)
+			if offset == 0 and onTotal is not None and isinstance(page.get("total"), int):
+				onTotal(page["total"])
 			items = page.get("items") or []
 			for entry in items:
 				out.append(simplifyEntry(entry, len(out)))
@@ -262,6 +269,38 @@ class SpotifyClient:
 			if not items or not page.get("next"):
 				break
 		return out[:maxItems]
+
+	def _page(self, playlistId, offset):
+		"""One page of 50 songs. Reading a big playlist makes many requests in a row:
+		when Spotify asks to wait (429) a reasonable time, it waits and tries again."""
+		for attempt in range(4):
+			try:
+				return self.request("GET", "/playlists/%s/items" % playlistId, {"limit": 50, "offset": offset, "additional_types": "track,episode"}) or {}
+			except SpotifyError as e:
+				if e.kind != "rateLimited" or attempt == 3 or (e.retryAfter or 0) > MAX_PAGE_RETRY_AFTER:
+					raise
+				self.sleep(max(1, e.retryAfter or 1))
+		return {}
+
+	def removeFromPlaylist(self, playlistId, uris, snapshotId=None):
+		"""Removes songs from a playlist. Spotify removes every copy of each song."""
+		playlistId = checkId(playlistId)
+		uris = [u for u in uris if isTrackUri(u)][:MAX_REMOVE]
+		if not uris:
+			raise SpotifyError("badRequest", "no tracks")
+		body = {"items": [{"uri": u} for u in uris]}
+		if snapshotId:
+			body["snapshot_id"] = str(snapshotId)[:200]
+		try:
+			result = self.request("DELETE", "/playlists/%s/items" % playlistId, body=body)
+		except SpotifyError as e:
+			if e.status not in (404, 405):
+				raise
+			old = {"tracks": body["items"]}
+			if snapshotId:
+				old["snapshot_id"] = body["snapshot_id"]
+			result = self.request("DELETE", "/playlists/%s/tracks" % playlistId, body=old)
+		return (result or {}).get("snapshot_id") if isinstance(result, dict) else None
 
 	def reorder(self, playlistId, rangeStart, insertBefore, snapshotId=None):
 		"""Moves one song (rangeStart) to before insertBefore. Returns the new snapshot id."""

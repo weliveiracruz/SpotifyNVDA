@@ -11,7 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 from _guiapp import (  # noqa: E402
-	MOCK, RECORD, VK_LEFT, VK_RIGHT, SpotifyNVDA, activate, childNodes, childTexts, click, closeWindow, config,
+	MOCK, RECORD, VK_LEFT, VK_RIGHT, SpotifyNVDA, activate, userSelect, childNodes, childTexts, click, closeWindow, config,
 	findTop, gui, mainDialog, nativeKey, newPlugin, pump, settingsPanel, signInThroughWindow, spokenSince,
 	topTexts, useBrowser, waitSpoken, wx,
 )
@@ -52,7 +52,7 @@ def run():
 	R.check("FUN-13 NVDA+Alt+P / Tools menu opens the Spotify window", dlg is not None and dlg.IsShown())
 	R.check("FUN-13 status says not signed in", dlg.statusEdit.GetValue().startswith("Not signed in"), dlg.statusEdit.GetValue())
 	R.check("FUN-13 sign in shown, sign out hidden", dlg.signInButton.IsShown() and not dlg.signOutButton.IsShown())
-	R.check("FUN-13 search and actions disabled without account", not dlg.searchEdit.IsEnabled() and not dlg.resumeButton.IsEnabled())
+	R.check("FUN-13 search and actions disabled without account", not dlg.searchEdit.IsEnabled() and not dlg.playButton.IsEnabled())
 	plugin.openWindow()
 	R.check("FUN-13 opening again reuses the same window", mainDialog.SpotifyDialog._instance is dlg)
 
@@ -142,10 +142,11 @@ def run():
 
 	# -- play/pause button ----------------------------------------------------------------------
 	n = len(nvda_stubs.spoken())
-	click(dlg.playPauseButton)
+	R.check("FUN-26 after Enter the single button is Play/pause again", dlg.playButton.GetLabel() == "&Play/pause", dlg.playButton.GetLabel())
+	click(dlg.playButton)
 	R.check("FUN-05 Play/pause button pauses", waitSpoken(n, lambda s: s == "Paused") and not MOCK.player["is_playing"], spokenSince(n))
 	n = len(nvda_stubs.spoken())
-	click(dlg.playPauseButton)
+	click(dlg.playButton)
 	R.check("FUN-05 Play/pause button plays again", waitSpoken(n, lambda s: s == "Playing") and MOCK.player["is_playing"], spokenSince(n))
 
 	# -- add to playlist -------------------------------------------------------------------------
@@ -200,12 +201,17 @@ def run():
 	dlg.onSearch(None)
 	pump(lambda: dlg.listKind == "playlists")
 	R.check("FUN-08 playlist search fills the list", topTexts(dlg) and topTexts(dlg)[0].startswith("Playlist 3"), topTexts(dlg)[:3])
+	R.check("FUN-26 after a search the button offers the result: Play <name>", dlg.playButton.GetLabel() == "&Play Playlist 3", dlg.playButton.GetLabel())
 	n = len(nvda_stubs.spoken())
 	click(dlg.playButton)
 	R.check("FUN-04 Play button plays the playlist", waitSpoken(n, lambda s: s == "Playing Playlist 3") and MOCK.player["context"]["uri"] == "spotify:playlist:p0000003", spokenSince(n))
 	n = len(nvda_stubs.spoken())
 	click(dlg.myPlaylistsButton)
 	R.check("FUN-03 My playlists button lists them again", waitSpoken(n, lambda s: s.startswith("Results: my playlists")) and dlg.listKind == "myPlaylists", spokenSince(n))
+	R.check("FUN-26 listing the playlists keeps the button as Play/pause", dlg.playButton.GetLabel() == "&Play/pause", dlg.playButton.GetLabel())
+	userSelect(dlg, findTop(dlg, "Playlist 2 "))
+	R.check("FUN-26 moving to an item turns the button into Play <name>", dlg.playButton.GetLabel() == "&Play Playlist 2", dlg.playButton.GetLabel())
+	dlg.select(findTop(dlg, "Playlist 1 "))
 
 	# -- tree: songs inside the playlists (1.2.0) ----------------------------------------------------
 	tree = dlg.resultsTree
@@ -242,7 +248,9 @@ def run():
 	local = childNodes(dlg, p2)[-1]
 	R.check("FUN-20 local file shown as not available", tree.GetItemText(local) == "Gravação caseira, by Eu (not available to play)", tree.GetItemText(local))
 	tree.SelectItem(local)
-	R.check("FUN-20 Play and Add disabled on a song that cannot be played", not dlg.playButton.IsEnabled() and not dlg.addButton.IsEnabled())
+	R.check("FUN-20 Add and Remove disabled on a song that cannot be played", not dlg.addButton.IsEnabled() and not dlg.removeButton.IsEnabled())
+	userSelect(dlg, local)
+	R.check("FUN-26 the button does not offer to play a song that cannot be played", dlg.playButton.GetLabel() == "&Play/pause", dlg.playButton.GetLabel())
 	n = len(nvda_stubs.spoken())
 	activate(dlg)
 	R.check("FUN-20 Enter on it explains", waitSpoken(n, lambda s: s == "This song is not available to play."), spokenSince(n))
@@ -267,6 +275,60 @@ def run():
 		R.check("FUN-20 adding a song refreshes the open playlist", ok, childTexts(dlg, p3))
 	finally:
 		mainDialog.wx.SingleChoiceDialog = original
+
+	# -- remove songs (1.3.0) ---------------------------------------------------------------------------
+	tree.Collapse(p3)
+	tree.Expand(p3)
+	pump(lambda: tree.GetItemData(p3).get("loaded"))
+	songs = childNodes(dlg, p3)
+	second = songs[1]
+	victim = tree.GetItemData(second)["item"]
+	before = [e["item"]["uri"] for e in [p for p in MOCK.playlists if p["id"] == "p0000003"][0]["entries"]]
+	userSelect(dlg, second)
+	R.check("FUN-25 Remove from playlist enabled on a song of your playlist", dlg.removeButton.IsEnabled())
+	nvda_stubs.MESSAGEBOX_ANSWER["value"] = wx.NO
+	nBoxes = len(RECORD["messageBoxes"])
+	click(dlg.removeButton)
+	R.check("FUN-25 removing asks first; No keeps the song", len(RECORD["messageBoxes"]) == nBoxes + 1 and RECORD["messageBoxes"][-1].startswith("Remove %s" % victim["name"]) and not MOCK.removed, RECORD["messageBoxes"][-1:])
+	nativeKey(dlg, 0x2E)  # Delete on a song
+	pump(timeout=0.3)
+	R.check("FUN-25 Delete key on a song also asks to remove it", len(RECORD["messageBoxes"]) == nBoxes + 2 and RECORD["messageBoxes"][-1].startswith("Remove "))
+	nvda_stubs.MESSAGEBOX_ANSWER["value"] = wx.YES
+	n = len(nvda_stubs.spoken())
+	click(dlg.removeButton)
+	ok = waitSpoken(n, lambda s: s == "%s removed from Playlist 3" % victim["name"])
+	after = [e["item"]["uri"] for e in [p for p in MOCK.playlists if p["id"] == "p0000003"][0]["entries"]]
+	R.check("FUN-25 song removed on Spotify", ok and victim["uri"] not in after and len(after) == len(before) - before.count(victim["uri"]), (spokenSince(n), after))
+	pump(lambda: tree.GetItemData(p3).get("loaded") and len(childNodes(dlg, p3)) == len(after))
+	R.check("FUN-25 the playlist is shown again without the song", [tree.GetItemData(c)["item"]["uri"] for c in childNodes(dlg, p3)] == after)
+	R.check("FUN-25 the selection stays at the same place", tree.GetSelection() == childNodes(dlg, p3)[min(1, len(after) - 1)])
+	R.check("FUN-25 the playlist name shows the new number of songs", tree.GetItemText(p3).endswith(", %d songs" % len(after)), tree.GetItemText(p3))
+	nvda_stubs.MESSAGEBOX_ANSWER["value"] = wx.OK
+	dup = [p for p in MOCK.playlists if p["id"] == "p0000007"][0]
+	dup["entries"] = [{"added_at": "x", "is_local": False, "item": t} for t in (TRACKS[0], TRACKS[2], TRACKS[0])]
+	p7 = findTop(dlg, "Playlist 7 ")
+	tree.Expand(p7)
+	pump(lambda: tree.GetItemData(p7).get("loaded"))
+	userSelect(dlg, childNodes(dlg, p7)[0])
+	nvda_stubs.MESSAGEBOX_ANSWER["value"] = wx.NO
+	click(dlg.removeButton)
+	R.check("FUN-25 a repeated song: the question says every copy is removed", "is 2 times in the playlist" in RECORD["messageBoxes"][-1], RECORD["messageBoxes"][-1:])
+	nvda_stubs.MESSAGEBOX_ANSWER["value"] = wx.OK
+	tree.Collapse(p7)
+
+	# -- big playlist: every song, real count (1.3.0) -------------------------------------------------------
+	big = [p for p in MOCK.playlists if p["id"] == "p0000008"][0]
+	big["entries"] = [{"added_at": "2026-01-01T00:00:00Z", "is_local": False, "item": TRACKS[i % 6]} for i in range(2500)]
+	plugin.service.library.forget("p0000008")
+	p8 = findTop(dlg, "Playlist 8 ")
+	userSelect(dlg, p8)
+	n = len(nvda_stubs.spoken())
+	tree.Expand(p8)
+	ok = pump(lambda: tree.GetItemData(p8).get("loaded"), 60)
+	R.check("FUN-24 a playlist with 2500 songs shows all of them", ok and len(childNodes(dlg, p8)) == 2500, len(childNodes(dlg, p8)))
+	R.check("FUN-24 the real number is announced (Loading 2500 songs…, 2500 songs)", waitSpoken(n, lambda s: s == "2500 songs") and "Loading 2500 songs…" in spokenSince(n), spokenSince(n))
+	R.check("FUN-24 the playlist name shows the real number", tree.GetItemText(p8) == "Playlist 8 - Wellington, 2500 songs", tree.GetItemText(p8))
+	tree.Collapse(p8)
 
 	# -- sort ------------------------------------------------------------------------------------------
 	def norm(text):
@@ -414,9 +476,12 @@ def run():
 	n = len(nvda_stubs.spoken())
 	plugin.script_resumeLast(None)
 	R.check("FUN-10 NVDA+Alt+U continues the last song", waitSpoken(n, lambda s: s.startswith("Continuing: ")) and MOCK.player["is_playing"], spokenSince(n))
+	MOCK.player = None
+	MOCK.activate("none")
 	n = len(nvda_stubs.spoken())
-	click(dlg.resumeButton)
-	R.check("FUN-10 Continue last song button", waitSpoken(n, lambda s: s.startswith("Continuing: ")), spokenSince(n))
+	click(dlg.playButton)
+	R.check("FUN-26 with nothing loaded the single button continues the last song", waitSpoken(n, lambda s: s.startswith("Continuing: ")) and MOCK.player["is_playing"], spokenSince(n))
+	R.check("FUN-26 Continue last song and Play/pause buttons no longer exist", not hasattr(dlg, "resumeButton") and not hasattr(dlg, "playPauseButton"))
 	MOCK.product = "free"
 	n = len(nvda_stubs.spoken())
 	plugin.script_playPause(None)

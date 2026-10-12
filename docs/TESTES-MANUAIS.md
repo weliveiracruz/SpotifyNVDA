@@ -18,6 +18,10 @@ Anote o resultado (OK ou o problema) em `reports/RELATORIO-TESTES-<versão>.md`.
 | MAN-20 | Tipo "Músicas nas minhas playlists", buscar uma palavra sem acento | Playlists encontradas abertas, só com as músicas certas |
 | MAN-21 | Ordenar músicas… por título; depois gravar no Spotify | A árvore muda; após gravar, o aplicativo do Spotify mostra a nova ordem |
 | MAN-22 | Excluir uma playlist de teste | Pede confirmação; some da árvore e do aplicativo do Spotify; pode ser recuperada na conta |
+| MAN-23 | Abrir uma playlist com mais de 2000 músicas | NVDA diz "Carregando N músicas…" e depois "N músicas" com o número real; o fim da playlist aparece |
+| MAN-24 | Remover uma música de uma playlist de teste (botão e tecla Delete) | Pede confirmação; a música some da árvore e do aplicativo do Spotify |
+| MAN-25 | Escolher uma música com as setas e ir ao botão com Tab | NVDA lê "Tocar <nome da música>"; ao pressionar, ela toca |
+| MAN-26 | Fechar o Spotify, abrir a janela e pressionar Tocar/pausar | Continua a última música |
 | MAN-06 | NVDA+Alt+Espaço duas vezes | "Pausado", depois "Tocando", com o som parando e voltando |
 | MAN-07 | NVDA+Alt+Setas para a direita e esquerda | Música muda e o nome é falado |
 | MAN-08 | NVDA+Alt+Setas para cima e para baixo | Volume muda e é falado |

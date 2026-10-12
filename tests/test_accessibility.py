@@ -247,7 +247,7 @@ def run():
 	pump(lambda: lastFocus() is dlg.resultsTree, 3)
 	R.check("ACE-06 after signing in the focus goes to the playlists", lastFocus() is dlg.resultsTree, lastFocus())
 	ctrls = checkWindow("Spotify window, signed in", dlg)
-	expected = [dlg.statusEdit, dlg.signOutButton, dlg.searchEdit, dlg.kindChoice, dlg.searchButton, dlg.resultsTree, dlg.playButton, dlg.myPlaylistsButton, dlg.newPlaylistButton, dlg.sortButton, dlg.deleteButton, dlg.resumeButton, dlg.playPauseButton, dlg.closeButton]
+	expected = [dlg.statusEdit, dlg.signOutButton, dlg.searchEdit, dlg.kindChoice, dlg.searchButton, dlg.resultsTree, dlg.playButton, dlg.myPlaylistsButton, dlg.newPlaylistButton, dlg.sortButton, dlg.deleteButton, dlg.closeButton]
 	R.check("ACE-03 tab order: status, sign out, search, type, search, results, actions, close", ctrls == expected, [plain(structuralName(c)) for c in ctrls])
 	R.check("ACE-04 Add to playlist out of the tab order for playlists (disabled)", dlg.addButton not in ctrls)
 	R.check("ACE-14 list name says what it shows and how many", plain(structuralName(dlg.resultsTree)).endswith("(55)"), structuralName(dlg.resultsTree))
@@ -267,8 +267,16 @@ def run():
 		tree.SelectItem(song)
 		name, state, value = msaaTreeSelection(tree)
 		R.check("ACE-18 song inside the playlist read by MSAA with its name at level 1", name == tree.GetItemText(song) and value == "1", (name, value))
+		tree.SetFocus()
+		tree.SelectItem(song)
+		wx.Yield()
+		ctrls = focusables(dlg)
+		R.check("ACE-04 Remove from playlist right after Add to playlist for a song of your playlist", dlg.removeButton in ctrls and ctrls.index(dlg.removeButton) == ctrls.index(dlg.addButton) + 1)
+		R.check("ACE-19 the single play button says what it will play", dlg.playButton.GetLabel() == plain_text("&Play {name}").format(name=tree.GetItemData(song)["item"]["name"].replace("&", "&&")), dlg.playButton.GetLabel())
+		R.check("ACE-19 its new name is read through MSAA", plain(msaaName(dlg.playButton)) == plain(dlg.playButton.GetLabel()), msaaName(dlg.playButton))
 		tree.Collapse(p3)
-		tree.SelectItem(p3)
+		dlg.select(p3)
+		R.check("ACE-19 back to Play/pause when the add-on moves the selection", dlg.playButton.GetLabel() == plain_text("&Play/pause"), dlg.playButton.GetLabel())
 
 	# keyboard: Enter in the search field searches, Enter in the list plays
 	dlg.searchEdit.SetValue("ipanema")

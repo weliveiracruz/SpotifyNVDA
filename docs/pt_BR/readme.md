@@ -32,15 +32,14 @@ Você continua conectado nas próximas vezes que abrir o NVDA, inclusive depois 
 | Situação | Diz se você está conectado, com qual nome e se a conta é Premium |
 | Entrar com o Spotify / Sair da conta | Entra ou sai da conta. Sair apaga a sessão e os dados guardados neste computador |
 | Buscar e Tipo | Digite e pressione Enter. Tipo: Músicas, Playlists ou Músicas nas minhas playlists (busca dentro das suas playlists, sem diferenciar acentos) |
-| Resultados | Árvore com as suas playlists ou o resultado da busca. Seta para a direita abre a playlist e mostra as músicas; Seta para a esquerda fecha. Enter toca a playlist ou, em uma música, toca a playlist a partir dela. Delete em uma playlist exclui |
-| Tocar | Toca a música ou a playlist selecionada |
+| Resultados | Árvore com as suas playlists ou o resultado da busca. Seta para a direita abre a playlist e mostra todas as músicas (até 10.000); Seta para a esquerda fecha. Enter toca a playlist ou, em uma música, toca a playlist a partir dela. Delete em uma playlist exclui a playlist; Delete em uma música remove a música da playlist |
+| Tocar <nome> / Tocar/pausar | Um só botão. Depois de escolher uma música ou playlist na árvore (ou de uma busca), ele se chama "Tocar <nome>" e toca esse item. Nos outros casos, chama-se "Tocar/pausar": pausa, retoma ou, se nada estiver carregado, continua a última música |
 | Adicionar à playlist… | Coloca a música selecionada em uma das suas playlists |
+| Remover da playlist | Tira a música selecionada da sua playlist, depois de confirmar. Se a música estiver repetida, o Spotify remove todas as cópias |
 | Minhas playlists | Mostra as suas playlists |
 | Nova playlist… | Cria uma playlist (nome, descrição, pública ou não) e pode já colocar a música selecionada |
 | Ordenar músicas… | Ordena a playlist selecionada por ordem da playlist, título, artista, álbum, data em que foi adicionada ou duração. Nas suas playlists, pode gravar a nova ordem no Spotify |
 | Excluir playlist | Tira a playlist selecionada da sua biblioteca, depois de confirmar. Uma playlist sua pode ser recuperada na sua conta do Spotify, em Recuperar playlists |
-| Continuar última música | Continua a última música tocada na sua conta, do ponto em que parou |
-| Tocar ou pausar | Toca ou pausa |
 | Fechar | Fecha a janela (Esc também fecha) |
 
 ## Músicas das playlists

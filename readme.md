@@ -27,7 +27,7 @@ You stay signed in the next times you start NVDA, also after updating the add-on
 
 ## Songs of the playlists
 
-The results are a tree: Right Arrow opens a playlist and shows its songs, Left Arrow closes it, Enter on a song plays the playlist from that song and Delete on a playlist deletes it (after confirming). The Type box also offers **Songs in my playlists**, which searches inside your playlists ignoring accents and case. **Order songs…** sorts a playlist by title, artist, album, date added or duration and, for your own playlists, can save the new order on Spotify. Spotify only shows the songs of playlists you own or collaborate on.
+The results are a tree: Right Arrow opens a playlist and shows all its songs (up to 10,000), Left Arrow closes it, Enter on a song plays the playlist from that song, Delete on a playlist deletes it and Delete on a song of your playlist removes it from the playlist (always after confirming). A single play button is called **Play <name>** right after you choose an item or search, and **Play/pause** otherwise (it also continues the last song when nothing is loaded). The Type box also offers **Songs in my playlists**, which searches inside your playlists ignoring accents and case. **Order songs…** sorts a playlist by title, artist, album, date added or duration and, for your own playlists, can save the new order on Spotify. Spotify only shows the songs of playlists you own or collaborate on.
 
 ## Shortcuts
 

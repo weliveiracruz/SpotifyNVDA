@@ -102,6 +102,9 @@ class SpotifyMock:
 			}]
 			self.launches = 0
 			self.reorders = []
+			self.removed = []
+			#: Fails one page of the songs of a playlist with 429 (offset, Retry-After).
+			self.pageRateLimit = None
 			self.deleted = []
 			self.browserOpened = []
 
@@ -305,6 +308,22 @@ class Handler(BaseHTTPRequestHandler):
 				return self._create(body)
 			if path == "/users/%s/playlists" % USER_ID and method == "POST":
 				return self._create(body, old=True)
+			if path.startswith("/playlists/") and method == "DELETE" and path.split("/")[3] in ("items", "tracks"):
+				parts = path.split("/")
+				pid, what = parts[2], parts[3]
+				p = next((x for x in M.playlists if x["id"] == pid), None)
+				if p is None:
+					return self._send(404, {"error": {"status": 404, "message": "Invalid playlist Id"}})
+				if p["owner"]["id"] != USER_ID and not p.get("collaborative"):
+					return self._send(403, {"error": {"status": 403, "message": "Forbidden"}})
+				objects = body.get("items" if what == "items" else "tracks") or []
+				if not objects or len(objects) > 100:
+					return self._send(400, {"error": {"status": 400, "message": "Invalid items"}})
+				uris = {o.get("uri") for o in objects}
+				# Like Spotify: every copy of each song is removed.
+				p["entries"] = [e for e in p["entries"] if (e.get("item") or {}).get("uri") not in uris]
+				M.removed.append((pid, sorted(uris)))
+				return self._send(200, {"snapshot_id": "snap-r%d" % len(M.removed)})
 			if path.startswith("/playlists/") and method in ("POST", "GET", "PUT"):
 				parts = path.split("/")
 				pid, what = parts[2], parts[3]
@@ -328,6 +347,10 @@ class Handler(BaseHTTPRequestHandler):
 				if method == "GET":
 					limit = int(query.get("limit", 20))
 					offset = int(query.get("offset", 0))
+					if M.pageRateLimit and M.pageRateLimit[0] == offset:
+						retry = M.pageRateLimit[1]
+						M.pageRateLimit = None
+						return self._send(429, {"error": {"status": 429, "message": "API rate limit exceeded"}}, {"Retry-After": str(retry)})
 					if limit > 50:
 						return self._send(400, {"error": {"status": 400, "message": "Invalid limit"}})
 					page = p["entries"][offset:offset + limit]

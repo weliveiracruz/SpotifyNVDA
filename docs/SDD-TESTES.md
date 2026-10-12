@@ -58,6 +58,9 @@ Garantir, a cada nova versão, que o SpotifyNVDA:
 | FUN-15 | Encerrar | Fecha a janela, remove o painel, sem erros no log | gui |
 | FUN-16 | NVDA real e Python | Todo módulo e função usados existem no NVDA instalado; manifesto aceito; código compila em 3.11 e 3.13 | runtime, pure |
 | FUN-17 | Pacote | `build.py` valida o manifesto e gera o `.nvda-addon` com tudo que é preciso | run_all |
+| FUN-24 | Playlist completa (1.3.0) | Playlist de 2500 músicas mostra as 2500; número real anunciado ("Carregando 2500 músicas…", "2500 músicas") e no nome; limite é 10.000; espera de 429 de até 30 s respeitada no meio da leitura; espera maior vira erro | pure, gui |
+| FUN-25 | Remover música (1.3.0) | Botão e Delete numa música pedem confirmação; Não mantém; Sim remove no Spotify com `{"items": [{"uri"}]}`, recarrega mantendo a seleção no lugar e atualiza o número no nome; repetida: avisa e remove todas as cópias; arquivo local e playlist de outra pessoa recusados; caminho antigo `/tracks` | pure, gui |
+| FUN-26 | Um só botão de tocar (1.3.0) | "Tocar/pausar" ao abrir e ao listar playlists; "Tocar <nome>" ao escolher um item ou depois de uma busca; toca o item e volta a "Tocar/pausar"; sem nada carregado continua a última música; não oferece música indisponível; botões antigos removidos | gui |
 | FUN-20 | Músicas das playlists em árvore (1.2.0) | Playlist é ramo; Seta para a direita (tecla real enviada à árvore) lê e mostra as músicas na ordem, anuncia quantas; Seta para a esquerda fecha; Enter toca a playlist a partir da música; cache; arquivo local indisponível; playlist de outra pessoa explicada; paginação de 50; formato antigo (`track`) aceito | pure, gui |
 | FUN-21 | Busca dentro das playlists (1.2.0) | Sem acentos e maiúsculas; só playlists próprias ou colaborativas são lidas; playlists encontradas abertas só com as músicas que combinam; anúncio e rótulo com o total; música encontrada toca dentro da playlist | pure, gui |
 | FUN-22 | Ordenar playlist (1.2.0) | Seis critérios, crescente e decrescente, estável; ordem lembrada por playlist; gravar no Spotify só nas próprias, com confirmação, movendo uma música por vez com snapshot encadeado, sem perder arquivos locais; plano de movimentos correto para qualquer ordem; limite de 500 movimentos; caminho antigo `/tracks` | pure, gui |
@@ -88,6 +91,7 @@ Referências: WCAG 2.2 AA (aplicável a software), guia de complementos do NVDA,
 | ACE-15 | Desconectado | Só Situação, Entrar e Fechar na tabulação |
 | ACE-16 | Documentação | HTML com idioma, títulos e tabelas reais |
 | ACE-18 | Árvore de playlists (1.2.0) | Pelo MSAA, a playlist é lida com o nome, "recolhido"/"expandido" e nível 0; a música, com o nome e nível 1; janela Ordenar com rótulos, letras de atalho e ordem de tabulação; Gravar no Spotify ausente nas playlists de outras pessoas |
+| ACE-19 | Botão único (1.3.0) | O nome do botão diz o que vai tocar e o MSAA lê o nome novo; Remover da playlist entra na tabulação logo depois de Adicionar à playlist, só quando serve |
 | ACE-17 | Tradução completa | Tudo traduzido para pt_BR, marcadores, letras de atalho e reticências mantidos |
 
 ## 6. Casos de vulnerabilidade (SEG)
@@ -114,7 +118,7 @@ Referências: OWASP ASVS 4 (V2, V3, V6, V8, V9, V13), RFC 8252 (OAuth para aplic
 | SEG-16 | Funções perigosas e dependências | Sem eval, exec, pickle, subprocess, shell; sem bibliotecas de terceiros |
 | SEG-17 | bandit | Nenhum problema médio ou alto; os baixos são só os justificados no código |
 | SEG-18 | Detalhes de erro | Limitados a 200 caracteres |
-| SEG-20 | Mudanças nas playlists (1.2.0) | IDs conferidos antes de ler, reordenar ou excluir; excluir e gravar ordem sempre pedem confirmação; gravar ordem só move (nunca remove); nenhum escopo novo |
+| SEG-20 | Mudanças nas playlists (1.2.0, 1.3.0) | IDs e URIs conferidos antes de ler, reordenar, excluir ou remover músicas; excluir, remover música e gravar ordem sempre pedem confirmação; gravar ordem só move (nunca remove); nenhum escopo novo |
 | SEG-19 | Segundo plano (1.1.0) | Só executa os caminhos fixos do Spotify com argumentos fixos; nunca esconde janelas de outros programas |
 
 ## 7. Critérios de aprovação

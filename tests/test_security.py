@@ -301,14 +301,16 @@ def run():
 		lambda: client.deletePlaylist("p0000001,spotify:playlist:p0000002"),
 		lambda: client.playlistItems("../me/playlists"),
 		lambda: client.reorder("p1?x=1", 0, 1),
+		lambda: client.removeFromPlaylist("p0000001/../x", ["spotify:track:t0000001"]),
+		lambda: client.removeFromPlaylist("p0000001", ["spotify:track:t1/../../x", "https://evil/x"]),
 	):
 		try:
 			call()
 		except SpotifyError as e:
 			refused += e.kind == "badRequest"
-	R.check("SEG-20 playlist IDs checked before deleting, reading or reordering", refused == 4 and len(MOCK.requests) == before, refused)
+	R.check("SEG-20 playlist IDs and song URIs checked before deleting, reading, reordering or removing", refused == 6 and len(MOCK.requests) == before, refused)
 	dialogSource = sources[os.path.join("addon", "globalPlugins", "SpotifyNVDA", "mainDialog.py")]
-	R.check("SEG-20 deleting a playlist and saving an order always ask first", dialogSource.count("wx.YES_NO | wx.NO_DEFAULT") >= 2 and "confirmDelete" in dialogSource and "confirmSaveOrder" in dialogSource)
+	R.check("SEG-20 deleting a playlist and saving an order always ask first", dialogSource.count("wx.YES_NO | wx.NO_DEFAULT") >= 3 and "confirmRemoveSong" in dialogSource and "confirmDelete" in dialogSource and "confirmSaveOrder" in dialogSource)
 	R.check("SEG-20 saving an order never removes songs (only moves)", "range_start" in sources[os.path.join("addon", "globalPlugins", "SpotifyNVDA", "api.py")] and '"uris"' not in sources[os.path.join("addon", "globalPlugins", "SpotifyNVDA", "library.py")])
 	R.check("SEG-13 no new OAuth scope for deleting or sorting", len(core.auth.SCOPES) == 9)
 
@@ -323,7 +325,7 @@ def run():
 	pattern = re.compile(r"(?<![\w.])(eval|exec|compile)\s*\(|\bpickle\b|\bmarshal\b|\bsubprocess\b|os\.system|os\.popen|shell\s*=\s*True|__import__|yaml\.load|ctypes\.CDLL\(.*(http|\\\\)")
 	bad = ["%s: %s" % (p, m.group(0)) for p, s in sources.items() for m in pattern.finditer(s)]
 	R.check("SEG-16 no eval, exec, pickle, subprocess or shell in the add-on", not bad, bad)
-	allowed = {"base64", "calendar", "ctypes", "unicodedata", "hashlib", "html", "json", "os", "queue", "re", "socket", "ssl", "sys", "threading", "time", "urllib",
+	allowed = {"base64", "calendar", "contextlib", "ctypes", "unicodedata", "hashlib", "html", "json", "os", "queue", "re", "socket", "ssl", "sys", "threading", "time", "urllib",
 		"addonHandler", "config", "globalPluginHandler", "globalVars", "gui", "queueHandler", "ui", "wx", "logHandler", "scriptHandler", "addonStore"}
 	imported = set()
 	for p, s in sources.items():

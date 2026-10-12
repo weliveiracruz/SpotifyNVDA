@@ -818,6 +818,85 @@ class SaveOrderAndDelete(Base):
 		self.assertEqual(self.svc.library.search("   ", playlists), ([], 0))
 
 
+class BigPlaylistsAndRemove(Base):
+	def big(self, pid="p0000006", count=2500):
+		p = playlistById(pid)
+		p["entries"] = [{"added_at": "2026-01-01T00:00:00Z", "is_local": False, "item": TRACKS[i % 6]} for i in range(count)]
+		return p
+
+	def test_FUN24_wholePlaylistIsRead(self):
+		self.signedIn()
+		self.big()
+		totals = []
+		entries = self.svc.client.playlistItems("p0000006", onTotal=totals.append)
+		self.assertEqual(len(entries), 2500)
+		self.assertEqual(totals, [2500])
+		self.assertEqual([e["position"] for e in entries], list(range(2500)))
+
+	def test_FUN24_limitIsSpotifyMaximum(self):
+		self.assertEqual(core.api.MAX_PLAYLIST_ITEMS, 10000)
+
+	def test_FUN24_waitsWhenSpotifyAsksDuringPaging(self):
+		self.signedIn()
+		self.big(count=300)
+		MOCK.pageRateLimit = (150, 12)
+		slept = []
+		self.svc.client.sleep = slept.append
+		entries = self.svc.client.playlistItems("p0000006")
+		self.assertEqual(len(entries), 300)
+		self.assertEqual(slept, [12])
+
+	def test_FUN24_tooLongWaitIsAnError(self):
+		self.signedIn()
+		self.big(count=300)
+		MOCK.pageRateLimit = (100, 120)
+		with self.assertRaises(SpotifyError) as cm:
+			self.svc.client.playlistItems("p0000006")
+		self.assertEqual(cm.exception.kind, "rateLimited")
+
+	def test_FUN25_removeSong(self):
+		self.signedIn()
+		entries = self.svc.library.items("p0000003")
+		target = entries[1]
+		copies = self.svc.library.removeSong("p0000003", target)
+		self.assertEqual(copies, 1)
+		self.assertNotIn(target["uri"], [e["item"]["uri"] for e in playlistById("p0000003")["entries"]])
+		req = lastRequest("DELETE", "/v1/playlists/p0000003/items")
+		self.assertEqual(json.loads(req["body"]), {"items": [{"uri": target["uri"]}]})
+		self.assertIsNone(self.svc.library.cached("p0000003"), "cache is dropped after a change")
+
+	def test_FUN25_duplicatesAreCountedAndAllRemoved(self):
+		self.signedIn()
+		p = playlistById("p0000006")
+		p["entries"] = [{"added_at": "x", "is_local": False, "item": t} for t in (TRACKS[0], TRACKS[1], TRACKS[0])]
+		entries = self.svc.library.items("p0000006")
+		self.assertEqual(self.svc.library.copies("p0000006", TRACKS[0]["uri"]), 2)
+		self.assertEqual(self.svc.library.removeSong("p0000006", entries[0]), 2)
+		self.assertEqual([e["item"]["uri"] for e in p["entries"]], [TRACKS[1]["uri"]])
+
+	def test_FUN25_localFileCannotBeRemoved(self):
+		self.signedIn()
+		local = self.svc.library.items("p0000002")[-1]
+		before = len(MOCK.requests)
+		with self.assertRaises(SpotifyError) as cm:
+			self.svc.library.removeSong("p0000002", local)
+		self.assertEqual(cm.exception.kind, "restricted")
+		self.assertEqual(len(MOCK.requests), before)
+
+	def test_FUN25_removeFallsBackToOldPath(self):
+		self.signedIn()
+		MOCK.fail("DELETE", "/v1/playlists/p0000003/items", 404, {"error": {"status": 404}})
+		self.svc.client.removeFromPlaylist("p0000003", [TRACKS[3]["uri"]])
+		req = lastRequest("DELETE", "/v1/playlists/p0000003/tracks")
+		self.assertEqual(json.loads(req["body"]), {"tracks": [{"uri": TRACKS[3]["uri"]}]})
+
+	def test_FUN25_someoneElsesPlaylistIsRefused(self):
+		self.signedIn()
+		with self.assertRaises(SpotifyError) as cm:
+			self.svc.client.removeFromPlaylist("p0000005", [TRACKS[0]["uri"]])
+		self.assertEqual(cm.exception.kind, "forbidden")
+
+
 class Helpers(unittest.TestCase):
 	def test_FUN01_clientIdValidation(self):
 		self.assertTrue(core.auth.isValidClientId(" 0123456789abcdef0123456789ABCDEF "))

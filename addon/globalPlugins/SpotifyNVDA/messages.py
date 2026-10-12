@@ -299,3 +299,23 @@ def confirmDelete(name):
 def deleted(name):
 	# Translators: spoken after deleting a playlist.
 	return _("Playlist {name} deleted").format(name=name)
+
+
+# 1.3.0
+
+def loadingSongs(count):
+	# Translators: spoken while a big playlist is read. {count} is the real number of songs.
+	return _("Loading {count} songs…").format(count=count)
+
+
+def confirmRemoveSong(song, playlist, copies):
+	if copies > 1:
+		# Translators: confirmation before removing a song that is more than once in the playlist.
+		return _("Remove {song} from {playlist}? This song is {copies} times in the playlist and Spotify removes every copy.").format(song=song, playlist=playlist, copies=copies)
+	# Translators: confirmation before removing a song from a playlist.
+	return _("Remove {song} from {playlist}?").format(song=song, playlist=playlist)
+
+
+def songRemoved(song, playlist):
+	# Translators: spoken after removing a song from a playlist.
+	return _("{song} removed from {playlist}").format(song=song, playlist=playlist)

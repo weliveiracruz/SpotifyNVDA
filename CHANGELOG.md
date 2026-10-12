@@ -1,5 +1,14 @@
 # Histórico de versões
 
+## 1.3.0
+
+* **Um só botão de tocar** no lugar de Tocar, Continuar última música e Tocar ou pausar. O nome diz o que ele faz:
+  * **Tocar <nome>**, quando você acabou de escolher uma música ou playlist na árvore ou depois de uma busca;
+  * **Tocar/pausar** nos outros casos: pausa o que está tocando, retoma o que está pausado e, se nada estiver carregado na conta, continua a última música.
+  * Enter na árvore continua tocando o item selecionado; NVDA+Alt+Espaço e NVDA+Alt+U continuam iguais.
+* **Playlists completas**: ao abrir uma playlist, todas as músicas aparecem (até 10.000, o máximo de uma playlist do Spotify), e não só as 2.000 primeiras. O NVDA anuncia o número real ("Carregando 3500 músicas…", "3500 músicas") e o nome da playlist mostra esse número. Se o Spotify pedir para esperar durante a leitura, o complemento espera e continua.
+* **Remover música da playlist**: botão Remover da playlist ou tecla Delete numa música de uma playlist sua, com confirmação. Se a música estiver repetida, o aviso diz que o Spotify remove todas as cópias. A árvore é atualizada e a seleção fica no mesmo lugar.
+
 ## 1.2.0
 
 * Pasta do projeto renomeada para `SpotifyNVDA`.
